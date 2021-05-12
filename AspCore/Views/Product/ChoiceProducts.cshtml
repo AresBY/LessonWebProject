@@ -1,0 +1,26 @@
+﻿@using AspCore.Enums
+@{
+    ViewData["Title"] = "ChoiceProducts";
+}
+
+<h1>ChoiceProducts</h1>
+@*@Html.DropDownList("user", new SelectList(new string[] { "Tom", "Sam", "Bob", "Alice" }), "Category")*@
+
+
+@using (Html.BeginForm("ShowProducts", "Product", FormMethod.Post))
+{
+<p>
+    @Html.DropDownList("category", Html.GetEnumSelectList(typeof(ProductType)), ProductType.All)
+</p>
+    <p>
+        <label>Min price</label><br />
+        <input type="number" name="minPrice" />
+    </p>
+    <p>
+        <label>Max price</label><br />
+        <input type="number" name="maxPrice" />
+    </p>
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+}
