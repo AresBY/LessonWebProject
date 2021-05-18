@@ -1,4 +1,5 @@
 ﻿using AspCore.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,9 +10,15 @@ namespace AspCore.Classes
 {
     public class ProductContext : DbContext
     {
-        public ProductContext()
-           : base("Server=localhost;Database=DBAspCore;Trusted_Connection=True;")
-        { }
+        public ProductContext(IConfiguration configuration) : base(configuration.GetConnectionString("DefaultConnection"))
+        {
+           
+        }
+
+      
+        //public ProductContext()
+        //   : base("Server=localhost;Database=DBAspCore;Trusted_Connection=True;")
+        //{ }
 
         public DbSet<ProductModel> Products { get; set; }
     }

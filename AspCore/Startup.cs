@@ -1,4 +1,7 @@
 using AspCore.Data;
+using BusinessLayer;
+using BusinessLayer.Implementations;
+using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,6 +46,9 @@ namespace AspCore
                        options.ClientId = "1009810217144-jn8igdlu6upjkrckam0cbuuvi4rruuhk.apps.googleusercontent.com";
                        options.ClientSecret = "2hgXFDOtHcudoY-yIkoGdO7i";
                    });
+
+            services.AddTransient<IUserTaskRepository, EFUserTaskRepository>();
+            services.AddScoped<BusinessManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
