@@ -1,16 +1,16 @@
-﻿@using AspCore.Enums
+﻿@using DataLayer.Enums;
 @{
     ViewData["Title"] = "ChoiceProducts";
 }
 
 <h1>ChoiceProducts</h1>
-@*@Html.DropDownList("user", new SelectList(new string[] { "Tom", "Sam", "Bob", "Alice" }), "Category")*@
+
 
 
 @using (Html.BeginForm("ShowProducts", "Product", FormMethod.Post))
 {
 <p>
-    @Html.DropDownList("category", Html.GetEnumSelectList(typeof(ProductType)), ProductType.All)
+    @Html.DropDownList("category", Html.GetEnumSelectList(typeof(CategoryType)), CategoryType.All)
 </p>
     <p>
         <label>Min price</label><br />

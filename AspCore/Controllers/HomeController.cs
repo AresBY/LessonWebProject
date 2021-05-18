@@ -20,7 +20,7 @@ namespace AspCore.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("ChoiceProducts", "Product");
+            return RedirectToAction("CreateNewTask", "UserTask");
             //return View();
         }
        

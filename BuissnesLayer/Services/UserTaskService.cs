@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PresentationLayer.Services
+namespace BusinessLayer.Services
 {
-    public class ProductService
+    public class UserTaskService
     {
+        
     }
 }

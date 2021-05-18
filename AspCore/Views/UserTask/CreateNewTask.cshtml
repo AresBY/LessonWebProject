@@ -1,0 +1,24 @@
+﻿@model DataLayer.Entityes.UserTask
+@{
+    ViewData["Title"] = "CreateNewTask";
+}
+
+<h1>CreateNewTask</h1>
+
+@using (Html.BeginForm("GetNewTaskData", "UserTask", FormMethod.Post))
+{
+    <p>
+        @Html.DropDownList("category", Html.GetEnumSelectList(typeof(DataLayer.Enums.CategoryType)), DataLayer.Enums.CategoryType.All)
+    </p>
+    <p>
+        <label>MaxPrice</label><br />
+        <input type="number" name="maxPrice" />
+    </p>
+    <p>
+        <label>Ключевые слова</label><br />
+        <input type="text" name="keyWords" />
+    </p>
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+}

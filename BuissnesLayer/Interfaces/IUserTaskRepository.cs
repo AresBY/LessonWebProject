@@ -1,4 +1,5 @@
 ﻿using PresentationLayer.Models;
+using PresentationLayer.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Text;

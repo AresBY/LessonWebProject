@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspCore.Enums
+namespace DataLayer.Enums
 {
-    public enum ProductType : int
+    public enum CategoryType : int
     {
         All = -1,
         Car,
