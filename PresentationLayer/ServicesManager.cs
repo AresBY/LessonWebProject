@@ -1,10 +1,11 @@
-﻿using BusinessLayer.Services;
+﻿using BusinessLayer;
+using PresentationLayer.Services;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessLayer
+namespace PresentationLayer
 {
-    class ServicesManager
+    public class ServicesManager
     {
         BusinessManager _businessManager;
         public UserTaskService _userTaskService;

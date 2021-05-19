@@ -1,6 +1,6 @@
 ﻿using BusinessLayer.Interfaces;
-using PresentationLayer.Models;
-using PresentationLayer.Models.DB;
+using BusinessLayer.Models.DB;
+using DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +9,11 @@ namespace BusinessLayer.Implementations
 {
     public class EFUserTaskRepository : IUserTaskRepository
     {
+        private EFDBContext context;
+        public EFUserTaskRepository(EFDBContext context)
+        {
+            this.context = context;
+        }
         public void DeleteUserTask(UserTaskDBModel model)
         {
             throw new NotImplementedException();
@@ -26,7 +31,9 @@ namespace BusinessLayer.Implementations
 
         public void SaveUserTask(UserTaskDBModel model)
         {
-            throw new NotImplementedException();
+            
+            context.Add(model);
+            var c = context.SaveChanges();
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PresentationLayer.Models.DB
+namespace BusinessLayer.Models.DB
 {
     class ProductDBModel
     {

@@ -1,6 +1,7 @@
 ﻿using DataLayer.Entityes;
 using DataLayer.Enums;
 using Microsoft.AspNetCore.Mvc;
+using PresentationLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,11 @@ namespace AspCore.Controllers
 {
     public class UserTaskController : Controller
     {
+        ServicesManager _servicesManager;
+        public UserTaskController(ServicesManager servicesManager)
+        {
+            _servicesManager = servicesManager;
+        }
         public IActionResult CreateNewTask()
         {
             return View();
@@ -17,13 +23,9 @@ namespace AspCore.Controllers
         [HttpPost]
         public IActionResult GetNewTaskData(CategoryType category, int maxPrice, string keyWords)
         {
-            //BusinessLayer.BusinessManager
-            //var result = _db.Products.Where(t =>
-            //(category == ProductType.All || category == t.Type) &&
-            //t.Price >= minPrice &&
-            //t.Price <= maxPrice);
 
-            //return View(result);
+            _servicesManager._userTaskService.CreateTask(new UserTask(category, maxPrice, keyWords));
+         
             return View();
         }
     }
