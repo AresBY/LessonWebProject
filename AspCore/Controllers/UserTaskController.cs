@@ -24,7 +24,6 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public IActionResult GetNewTaskData(CategoryType category, int maxPrice, string keyWords)
         {
-
             _servicesManager._userTaskService.CreateTask( category,  maxPrice,  keyWords);
          
             return View();
