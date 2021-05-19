@@ -1,4 +1,5 @@
-﻿using DataLayer.Entityes;
+﻿
+using BusinessLayer.Services;
 using DataLayer.Enums;
 using Microsoft.AspNetCore.Mvc;
 using PresentationLayer;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspCore.Controllers
+namespace PresentationLayer.Controllers
 {
     public class UserTaskController : Controller
     {
@@ -24,7 +25,7 @@ namespace AspCore.Controllers
         public IActionResult GetNewTaskData(CategoryType category, int maxPrice, string keyWords)
         {
 
-            _servicesManager._userTaskService.CreateTask(new UserTask(category, maxPrice, keyWords));
+            _servicesManager._userTaskService.CreateTask( category,  maxPrice,  keyWords);
          
             return View();
         }

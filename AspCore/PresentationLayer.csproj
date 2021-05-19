@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-AspCore-7E0A2DC6-6B5D-4E76-9933-7DA59DA4F2D0</UserSecretsId>
+    <UserSecretsId>aspnet-PresentationLayer-7E0A2DC6-6B5D-4E76-9933-7DA59DA4F2D0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BuissnesLayer\BusinessLayer.csproj" />
-    <ProjectReference Include="..\PresentationLayer\PresentationLayer.csproj" />
   </ItemGroup>
 
 </Project>

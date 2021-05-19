@@ -1,8 +1,9 @@
 
-using AspCore.Controllers;
+using PresentationLayer.Controllers;
 using BusinessLayer;
 using BusinessLayer.Implementations;
 using BusinessLayer.Interfaces;
+using BusinessLayer.Services;
 using DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,14 +14,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PresentationLayer;
-using PresentationLayer.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspCore
+namespace PresentationLayer
 {
     public class Startup
     {

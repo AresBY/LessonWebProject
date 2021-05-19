@@ -1,6 +1,6 @@
 ﻿using BusinessLayer.Interfaces;
-using BusinessLayer.Models.DB;
 using DataLayer;
+using DataLayer.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,7 +31,6 @@ namespace BusinessLayer.Implementations
 
         public void SaveUserTask(UserTaskDBModel model)
         {
-            
             context.Add(model);
             var c = context.SaveChanges();
         }

@@ -1,13 +1,14 @@
-﻿using AspCore.Models;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PresentationLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspCore.Controllers
+namespace PresentationLayer.Controllers
 {
     public class HomeController : Controller
     {

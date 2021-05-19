@@ -1,9 +1,8 @@
 ﻿using BusinessLayer;
-using PresentationLayer.Services;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PresentationLayer
+namespace BusinessLayer.Services
 {
     public class ServicesManager
     {

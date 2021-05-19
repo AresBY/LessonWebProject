@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataLayer.Implementations
+namespace BusinessLayer.Implementations
 {
     class EFProductRepository
     {

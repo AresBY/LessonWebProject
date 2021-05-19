@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
+    <Compile Remove="Entityes\**" />
+    <EmbeddedResource Remove="Entityes\**" />
+    <None Remove="Entityes\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entityes\" />
+    <Compile Remove="Class1.cs" />
   </ItemGroup>
 
   <ItemGroup>
