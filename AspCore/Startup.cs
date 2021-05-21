@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace PresentationLayer
 {
@@ -34,40 +35,42 @@ namespace PresentationLayer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<EFDBContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddAuthentication().AddGoogle(options =>
-                   {
-                       IConfigurationSection googleAuthNSection =
-                           Configuration.GetSection("Authentication:Google");
 
-                       options.ClientId = "1009810217144-jn8igdlu6upjkrckam0cbuuvi4rruuhk.apps.googleusercontent.com";
-                       options.ClientSecret = "2hgXFDOtHcudoY-yIkoGdO7i";
-                   });
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+              options.UseSqlServer(
+                  Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthentication()
+           .AddGoogle(options =>
+           {
+               IConfigurationSection googleAuthNSection =
+                   Configuration.GetSection("Authentication:Google");
+
+               options.ClientId = "1009810217144-jn8igdlu6upjkrckam0cbuuvi4rruuhk.apps.googleusercontent.com";
+               options.ClientSecret = "2hgXFDOtHcudoY-yIkoGdO7i";
+           });
+
+
+
 
             services.AddTransient<IUserTaskRepository, EFUserTaskRepository>();
-          
+
             services.AddScoped<BusinessManager>();
-
-
-
 
             ////Снизу написанно с помощью научного тыка
             services.AddTransient<ServicesManager>();
             services.AddTransient<UserTaskService>();
-
-
-      
-
-            //services.AddDbContext<DbContext, EFDBContext>();
-            // services.AddTransient<IUserTaskRepository, EFUserTaskRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,7 +100,7 @@ namespace PresentationLayer
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages(); 
+                endpoints.MapRazorPages();
             });
         }
     }
