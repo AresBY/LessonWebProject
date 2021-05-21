@@ -8,7 +8,7 @@ namespace DataLayer
 {
     public class EFDBContext : DbContext
     {
-        public DbSet<UserTaskDBModel> UserTask { get; set; }
+        public DbSet<UserTaskDBModel> UserTasks { get; set; }
       
 
         public EFDBContext(DbContextOptions<EFDBContext> options) : base(options) { }

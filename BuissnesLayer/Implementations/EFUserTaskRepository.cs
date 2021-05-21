@@ -3,6 +3,7 @@ using DataLayer;
 using DataLayer.Models.DB;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BusinessLayer.Implementations
@@ -19,9 +20,25 @@ namespace BusinessLayer.Implementations
             throw new NotImplementedException();
         }
 
+        public void DeleteUserTasksByID(string userID, int[] tasksID)
+        {
+            context.UserTasks.RemoveRange(context.UserTasks.Where(p => p.UserID == userID && tasksID.Contains(p.ID)));
+            context.SaveChanges();
+        }
+
+        public IEnumerable<UserTaskDBModel> GetAllUserTasksByID(string userID)
+        {
+            return context.UserTasks.Where(p => p.UserID == userID);
+        }
+
         public IEnumerable<UserTaskDBModel> GetAllUserTasksDBModels()
         {
             throw new NotImplementedException();
+        }
+
+        public int GetCountTasksByID(string userID)
+        {
+            return context.UserTasks.Where(p => p.UserID == userID).Count();
         }
 
         public UserTaskDBModel GetTaskById(int directoryID)
@@ -32,7 +49,9 @@ namespace BusinessLayer.Implementations
         public void SaveUserTask(UserTaskDBModel model)
         {
             context.Add(model);
-            var c = context.SaveChanges();
+            context.SaveChanges();
         }
+
+        
     }
 }

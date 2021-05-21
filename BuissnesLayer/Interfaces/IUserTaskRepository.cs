@@ -8,6 +8,9 @@ namespace BusinessLayer.Interfaces
     public interface IUserTaskRepository
     {
         IEnumerable<UserTaskDBModel> GetAllUserTasksDBModels();
+        IEnumerable<UserTaskDBModel> GetAllUserTasksByID(string userID);
+        void DeleteUserTasksByID(string userID, int[] tasksID);
+        int GetCountTasksByID(string userID);
         UserTaskDBModel GetTaskById(int directoryID);
         void SaveUserTask(UserTaskDBModel model);
         void DeleteUserTask(UserTaskDBModel model);

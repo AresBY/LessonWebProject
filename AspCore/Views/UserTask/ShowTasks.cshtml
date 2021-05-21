@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BusinessLayer.Models.View.UserTaskViewModel>
+@{
+    ViewData["Title"] = "ShowTasks";
+}
+
+
+<label> Задания:</label>
+@if (Model.Count() != 0)
+{
+    @using (Html.BeginForm("DeleteTasks", "UserTask", FormMethod.Post))
+    {
+        @foreach (var task in Model)
+        {
+            <li>
+                <input type="checkbox" name="tasksID" value=@task.ID />
+                <label> Категория:</label>   @task.CategoryType
+                <label> Цена товара:</label>  @task.Price
+                <label> Ключевые слова:</label> @task.Keywords
+            </li>
+        }
+        <p>
+            <input type="submit" value="Удалить" />
+        </p>
+    }
+
+    @using (Html.BeginForm("CreateNewTask", "UserTask", FormMethod.Post))
+    {
+        <p>
+            <input type="submit" value="Создать" />
+        </p>
+    }
+}
+else
+{
+    <label> Not found tasks in the database.</label>
+}
+
+

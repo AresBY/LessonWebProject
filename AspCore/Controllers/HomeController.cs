@@ -1,5 +1,8 @@
 ﻿
-using Microsoft.AspNetCore.Authorization;
+
+using BusinessLayer;
+using BusinessLayer.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PresentationLayer.Models;
@@ -7,26 +10,39 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
-    //[Authorize]
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserTaskService _userTaskService;
+
+        public HomeController(UserTaskService userTaskService, UserManager<IdentityUser> manager, ILogger<HomeController> logger)
         {
+            _userTaskService = userTaskService;
             _logger = logger;
+            _userManager = manager;
         }
-        //[AllowAnonymous]
+
         public IActionResult Index()
         {
-            return RedirectToAction("CreateNewTask", "UserTask");
-            //return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                string nameMethod = _userTaskService.GetCountTasks(User.FindFirstValue(ClaimTypes.NameIdentifier)) > 0 ? "ShowTasks" : "CreateNewTask";
+                return RedirectToAction(nameMethod, "UserTask");
+            }
+            else
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
         }
-       
+
 
         public IActionResult Privacy()
         {
