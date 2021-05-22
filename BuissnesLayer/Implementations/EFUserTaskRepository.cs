@@ -10,14 +10,10 @@ namespace BusinessLayer.Implementations
 {
     public class EFUserTaskRepository : IUserTaskRepository
     {
-        private EFDBContext context;
+        private readonly EFDBContext context;
         public EFUserTaskRepository(EFDBContext context)
         {
             this.context = context;
-        }
-        public void DeleteUserTask(UserTaskDBModel model)
-        {
-            throw new NotImplementedException();
         }
 
         public void RemoveUserTasksByID(string userID, int[] tasksID)
@@ -29,11 +25,6 @@ namespace BusinessLayer.Implementations
         public IEnumerable<UserTaskDBModel> GetAllUserTasksByID(string userID)
         {
             return context.UserTasks.Where(p => p.UserID == userID);
-        }
-
-        public IEnumerable<UserTaskDBModel> GetAllUserTasksDBModels()
-        {
-            throw new NotImplementedException();
         }
 
         public int GetCountTasksByID(string userID)
@@ -51,7 +42,5 @@ namespace BusinessLayer.Implementations
             context.Add(model);
             context.SaveChanges();
         }
-
-        
     }
 }

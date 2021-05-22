@@ -10,28 +10,9 @@ namespace BusinessLayer.Services
     public class ServicesManager
     {
         public readonly UserTaskService _userTaskService;
-        private readonly IUserTaskRepository _userTaskRepository;
-        public ServicesManager(IUserTaskRepository userTaskRepository, UserTaskService userTaskService)
+        public ServicesManager( UserTaskService userTaskService)
         {
             _userTaskService = userTaskService;
-            _userTaskRepository = userTaskRepository;
-        }
-       
-        public IEnumerable<UserTaskViewModel> ConvertDBModelToView(IEnumerable<UserTaskDBModel> input)
-        {
-            List<UserTaskViewModel> output = new List<UserTaskViewModel>();
-            foreach (var v in input)
-            {
-                output.Add(
-                    new UserTaskViewModel()
-                    {
-                        ID = v.ID,
-                        CategoryType = v.CategoryType,
-                        Price = v.Price,
-                        Keywords = v.Keywords
-                    });
-            }
-            return output;
         }
     }
 }

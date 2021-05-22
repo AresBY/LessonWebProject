@@ -12,20 +12,16 @@ namespace BusinessLayer.Services
 {
     public class UserTaskService
     {
-        public readonly IUserTaskRepository _userTaskRepository;
+        private readonly IUserTaskRepository _userTaskRepository;
 
         public UserTaskService(IUserTaskRepository userTaskRepository)
         {
             _userTaskRepository = userTaskRepository;
         }
-        public void CreateTask(string UserID, CategoryType category, int maxPrice, string keyWords)
+
+        public void CreateTask(string userID, UserTaskViewModel userTaskViewModel)
         {
-            UserTaskDBModel dbModel = new UserTaskDBModel();
-            dbModel.CategoryType = category;
-            dbModel.Price = maxPrice;
-            dbModel.Keywords = keyWords;
-            dbModel.UserID = UserID;
-            _userTaskRepository.SaveUserTask(dbModel);
+            _userTaskRepository.SaveUserTask(ConvertViewModelToDBModel(userID, userTaskViewModel));
         }
 
         public void RemoveTasksByID(string userID, params int[] tasksID)
@@ -41,6 +37,23 @@ namespace BusinessLayer.Services
         public int GetCountTasks(string userID)
         {
             return _userTaskRepository.GetCountTasksByID(userID);
+        }
+        public UserTaskDBModel ConvertViewModelToDBModel(string userID, UserTaskViewModel input)
+        {
+            UserTaskDBModel output = new UserTaskDBModel()
+            {
+                ID = input.ID,
+                UserID = userID,
+                CategoryType = input.CategoryType,
+                Price = input.Price,
+                Keywords = input.Keywords
+            };
+            return output;
+        }
+
+        public UserTaskDBModel GetTaskById(int tasksID)
+        {
+            return _userTaskRepository.GetTaskById(tasksID);
         }
 
         public UserTaskViewModel ConvertDBModelToView(UserTaskDBModel input)
@@ -64,7 +77,5 @@ namespace BusinessLayer.Services
             }
             return output;
         }
-
-       
     }
 }

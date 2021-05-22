@@ -12,11 +12,10 @@
         @foreach (var task in Model)
         {
             <li>
-                @*<input type="checkbox" name="tasksID" value=@task.ID />*@
                 @Html.RadioButton("tasksID", @task.ID)
-                <label> Категория:</label>   @task.CategoryType
-                <label> Цена товара:</label>  @task.Price
-                <label> Ключевые слова:</label> @task.Keywords
+                <label> Категория:</label>   @task.CategoryType; 
+                <label> Макс. цена товара:</label>  @task.Price;  
+                <label> Ключевые слова:</label> @task.Keywords; 
             </li>
         }
         <p>
@@ -25,17 +24,16 @@
             <button type="submit" name="operation" data-number="tasksID" value="edit">Редактировать</button>
         </p>
     }
-
-    @using (Html.BeginForm("CreateNewTask", "UserTask", FormMethod.Post))
-    {
-        <p>
-            <button type="submit" >Создать</button>
-        </p>
-    }
 }
 else
 {
     <label> Not found tasks in the database.</label>
+}
+@using (Html.BeginForm("CreateNewTask", "UserTask", FormMethod.Post))
+{
+    <p>
+        <button type="submit">Создать</button>
+    </p>
 }
 
 

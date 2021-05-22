@@ -15,7 +15,7 @@ namespace PresentationLayer.Controllers
 {
     public class UserTaskController : Controller
     {
-        ServicesManager _servicesManager;
+        private readonly ServicesManager _servicesManager;
 
         public UserTaskController(ServicesManager servicesManager)
         {
@@ -41,7 +41,7 @@ namespace PresentationLayer.Controllers
 
         public IActionResult EditTask(int tasksID)
         {
-            UserTaskDBModel model = _servicesManager._userTaskService._userTaskRepository.GetTaskById(tasksID);
+            UserTaskDBModel model = _servicesManager._userTaskService.GetTaskById(tasksID);
             if (model != null)
             {
                 return View(_servicesManager._userTaskService.ConvertDBModelToView(model));
@@ -57,17 +57,18 @@ namespace PresentationLayer.Controllers
             return View(new UserTaskViewModel());
         }
         [HttpPost]
-        public IActionResult GetEditTaskData(int tasksID, CategoryType CategoryType, int maxPrice, string keyWords)
+        public IActionResult GetEditTaskData(int taskID, UserTaskViewModel userTaskViewModel)
         {
-            _servicesManager._userTaskService.RemoveTasksByID(User.FindFirstValue(ClaimTypes.NameIdentifier), tasksID);
-            _servicesManager._userTaskService.CreateTask(User.FindFirstValue(ClaimTypes.NameIdentifier), CategoryType, maxPrice, keyWords);
+            _servicesManager._userTaskService.RemoveTasksByID(User.FindFirstValue(ClaimTypes.NameIdentifier), taskID);
+           
+            _servicesManager._userTaskService.CreateTask(User.FindFirstValue(ClaimTypes.NameIdentifier), userTaskViewModel);
             return RedirectToAction("ShowTasks");
         }
 
         [HttpPost]
-        public IActionResult GetNewTaskData(CategoryType CategoryType, int maxPrice, string keyWords)
+        public IActionResult GetNewTaskData(UserTaskViewModel userTaskViewModel)
         {
-            _servicesManager._userTaskService.CreateTask(User.FindFirstValue(ClaimTypes.NameIdentifier), CategoryType, maxPrice, keyWords);
+            _servicesManager._userTaskService.CreateTask(User.FindFirstValue(ClaimTypes.NameIdentifier),userTaskViewModel);
 
             return RedirectToAction("ShowTasks");
         }

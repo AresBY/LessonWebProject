@@ -9,6 +9,14 @@ namespace BusinessLayer.Models.View
 {
     public class UserTaskViewModel
     {
+        public UserTaskViewModel() { }
+        public UserTaskViewModel(CategoryType categoryType, int maxPrice, string keyWords)
+        {
+            CategoryType = categoryType;
+            Price = maxPrice;
+            Keywords = keyWords;
+        }
+
         [Key]
         public int ID { get; set; }
         public CategoryType CategoryType { get; set; }
