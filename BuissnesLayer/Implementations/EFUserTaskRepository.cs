@@ -20,7 +20,7 @@ namespace BusinessLayer.Implementations
             throw new NotImplementedException();
         }
 
-        public void DeleteUserTasksByID(string userID, int[] tasksID)
+        public void RemoveUserTasksByID(string userID, int[] tasksID)
         {
             context.UserTasks.RemoveRange(context.UserTasks.Where(p => p.UserID == userID && tasksID.Contains(p.ID)));
             context.SaveChanges();
@@ -41,9 +41,9 @@ namespace BusinessLayer.Implementations
             return context.UserTasks.Where(p => p.UserID == userID).Count();
         }
 
-        public UserTaskDBModel GetTaskById(int directoryID)
+        public UserTaskDBModel GetTaskById(int ID)
         {
-            throw new NotImplementedException();
+            return context.UserTasks.Where(p => p.ID == ID).FirstOrDefault();
         }
 
         public void SaveUserTask(UserTaskDBModel model)

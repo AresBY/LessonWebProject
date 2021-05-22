@@ -10,7 +10,7 @@ namespace BusinessLayer.Services
     public class ServicesManager
     {
         public readonly UserTaskService _userTaskService;
-        public readonly IUserTaskRepository _userTaskRepository;
+        private readonly IUserTaskRepository _userTaskRepository;
         public ServicesManager(IUserTaskRepository userTaskRepository, UserTaskService userTaskService)
         {
             _userTaskService = userTaskService;

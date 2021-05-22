@@ -34,8 +34,7 @@ namespace PresentationLayer.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                string nameMethod = _userTaskService.GetCountTasks(User.FindFirstValue(ClaimTypes.NameIdentifier)) > 0 ? "ShowTasks" : "CreateNewTask";
-                return RedirectToAction(nameMethod, "UserTask");
+                return RedirectToAction("ShowTasks", "UserTask");
             }
             else
             {

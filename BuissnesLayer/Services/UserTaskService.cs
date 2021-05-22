@@ -28,35 +28,43 @@ namespace BusinessLayer.Services
             _userTaskRepository.SaveUserTask(dbModel);
         }
 
-        public void RemoveTasksByID(string userID, int[] tasksID)
+        public void RemoveTasksByID(string userID, params int[] tasksID)
         {
-            _userTaskRepository.DeleteUserTasksByID(userID, tasksID);
+            _userTaskRepository.RemoveUserTasksByID(userID, tasksID);
         }
 
         public IEnumerable<UserTaskViewModel> GetAllTasks(string userID)
         {
-            return ConvertDBModelToView(_userTaskRepository.GetAllUserTasksByID(userID));
+            return ConvertDBModelsToView(_userTaskRepository.GetAllUserTasksByID(userID));
         }
 
         public int GetCountTasks(string userID)
         {
             return _userTaskRepository.GetCountTasksByID(userID);
         }
-        public IEnumerable<UserTaskViewModel> ConvertDBModelToView(IEnumerable<UserTaskDBModel> input)
+
+        public UserTaskViewModel ConvertDBModelToView(UserTaskDBModel input)
+        {
+            UserTaskViewModel output = new UserTaskViewModel()
+            {
+                ID = input.ID,
+                CategoryType = input.CategoryType,
+                Price = input.Price,
+                Keywords = input.Keywords
+            };
+
+            return output;
+        }
+        public IEnumerable<UserTaskViewModel> ConvertDBModelsToView(IEnumerable<UserTaskDBModel> input)
         {
             List<UserTaskViewModel> output = new List<UserTaskViewModel>();
             foreach (var v in input)
             {
-                output.Add(
-                    new UserTaskViewModel()
-                    {
-                        ID = v.ID,
-                        CategoryType = v.CategoryType,
-                        Price = v.Price,
-                        Keywords = v.Keywords
-                    });
+                output.Add(ConvertDBModelToView(v));
             }
             return output;
         }
+
+       
     }
 }

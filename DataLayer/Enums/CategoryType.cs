@@ -7,7 +7,6 @@ namespace DataLayer.Enums
 {
     public enum CategoryType : int
     {
-        All = -1,
         Car,
         Computer,
         Food

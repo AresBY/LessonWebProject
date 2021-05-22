@@ -7,26 +7,29 @@
 <label> Задания:</label>
 @if (Model.Count() != 0)
 {
-    @using (Html.BeginForm("DeleteTasks", "UserTask", FormMethod.Post))
+    @using (Html.BeginForm("OperationWithTask", "UserTask", FormMethod.Post))
     {
         @foreach (var task in Model)
         {
             <li>
-                <input type="checkbox" name="tasksID" value=@task.ID />
+                @*<input type="checkbox" name="tasksID" value=@task.ID />*@
+                @Html.RadioButton("tasksID", @task.ID)
                 <label> Категория:</label>   @task.CategoryType
                 <label> Цена товара:</label>  @task.Price
                 <label> Ключевые слова:</label> @task.Keywords
             </li>
         }
         <p>
-            <input type="submit" value="Удалить" />
+
+            <button type="submit" name="operation" data-number="tasksID" value="delete">Удалить</button>
+            <button type="submit" name="operation" data-number="tasksID" value="edit">Редактировать</button>
         </p>
     }
 
     @using (Html.BeginForm("CreateNewTask", "UserTask", FormMethod.Post))
     {
         <p>
-            <input type="submit" value="Создать" />
+            <button type="submit" >Создать</button>
         </p>
     }
 }
