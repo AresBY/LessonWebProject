@@ -1,5 +1,6 @@
 ﻿
 using LessonWebProject.BusinessLogic.Services;
+using LessonWebProject.Common;
 using LessonWebProject.Common.Models.DB;
 using LessonWebProject.Common.Models.View;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace LessonWebProject.Web.Controllers
         }
         public IActionResult ShowTasks()
         {
-            return View(_servicesManager._userTaskService.GetAllTasks(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            return View(_servicesManager._userTaskService.GetAllUserTasks(User.FindFirstValue(ClaimTypes.NameIdentifier)));
         }
 
         public IActionResult DeleteTasks(params int[] tasksID)
@@ -38,7 +39,7 @@ namespace LessonWebProject.Web.Controllers
             UserTaskDBModel model = _servicesManager._userTaskService.GetTaskById(tasksID);
             if (model != null)
             {
-                return View(_servicesManager._userTaskService.ConvertDBModelToView(model));
+                return View(model.toContract());
             }
             else
             {
