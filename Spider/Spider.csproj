@@ -41,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AresDebug.cs" />
-    <Compile Include="CategoryType.cs" />
     <Compile Include="JsonDeserializeClasses\ApiLimitRoot.cs" />
     <Compile Include="JsonDeserializeClasses\ProductRoot.cs" />
     <Compile Include="Program.cs" />
@@ -52,9 +51,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+    <ProjectReference Include="..\DataLayer\Data.csproj">
       <Project>{5e08f226-84de-4daa-818e-3274edc51707}</Project>
-      <Name>DataLayer</Name>
+      <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

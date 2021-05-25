@@ -1,0 +1,24 @@
+﻿@model LessonWebProject.Common.Enums.Models.View.UserTaskViewModel
+@{
+    ViewData["Title"] = "EditTaskData";
+}
+
+<h1>EditTask</h1>
+
+@using (Html.BeginForm("GetEditTaskData", "UserTask", FormMethod.Post))
+{
+    <p>
+        @Html.DropDownListFor(model => model.CategoryType, Html.GetEnumSelectList<LessonWebProject.Common.Enums.CategoryType>(), Model.CategoryType)
+    </p>
+    <p>
+        <label>MaxPrice</label><br />
+        <input type="number" name=Price value=@Model.Price />
+    </p>
+    <p>
+        <label>Ключевые слова</label><br />
+        <input type="text" name=Keywords value=@Model.Keywords />
+    </p>
+    <p>
+        <button type="submit" name="taskID" value=@Model.ID>Сохранить</button>
+    </p>
+}
