@@ -1,4 +1,4 @@
-﻿using LessonWebProject.BusinessLogic.Repository.Interfaces;
+﻿using LessonWebProject.Data.Repository.Interfaces;
 using LessonWebProject.Common.Models.DB;
 using LessonWebProject.Data;
 using System;
@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LessonWebProject.BusinessLogic.Repository.Implementations
+namespace LessonWebProject.Data.Repository.Implementations
 {
     public class EFUserTaskRepository : IUserTaskRepository
     {
-        private readonly EFDBContext context;
-        public EFUserTaskRepository(EFDBContext context)
+        private readonly EFDBUserTaskContext context;
+        public EFUserTaskRepository(EFDBUserTaskContext context)
         {
             this.context = context;
         }
@@ -21,7 +21,10 @@ namespace LessonWebProject.BusinessLogic.Repository.Implementations
             context.UserTasks.RemoveRange(context.UserTasks.Where(p => p.UserID == userID && tasksID.Contains(p.ID)));
             context.SaveChanges();
         }
-
+        public IEnumerable<UserTaskDBModel> GetAllUsersTasks()
+        {
+            return context.UserTasks;
+        }
         public IEnumerable<UserTaskDBModel> GetAllUserTasksByID(string userID)
         {
             return context.UserTasks.Where(p => p.UserID == userID);
@@ -39,8 +42,9 @@ namespace LessonWebProject.BusinessLogic.Repository.Implementations
 
         public void SaveUserTask(UserTaskDBModel model)
         {
-            context.Add(model);
+            context.UserTasks.Add(model);
             context.SaveChanges();
         }
+       
     }
 }

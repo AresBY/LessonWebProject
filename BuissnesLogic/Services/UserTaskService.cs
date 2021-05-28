@@ -1,5 +1,5 @@
 ﻿using LessonWebProject.Common;
-using LessonWebProject.BusinessLogic.Repository.Interfaces;
+using LessonWebProject.Data.Repository.Interfaces;
 using LessonWebProject.Common.Models.DB;
 using LessonWebProject.Common.Models.View;
 using System.Collections.Generic;

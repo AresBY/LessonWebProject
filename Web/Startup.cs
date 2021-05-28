@@ -7,9 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using LessonWebProject.Data;
-using LessonWebProject.BusinessLogic.Repository.Implementations;
-using LessonWebProject.BusinessLogic.Repository.Interfaces;
+using LessonWebProject.Data.Repository.Implementations;
+using LessonWebProject.Data.Repository.Interfaces;
 using LessonWebProject.BusinessLogic.Services;
+using Common;
 
 namespace LessonWebProject.Web
 {
@@ -25,8 +26,8 @@ namespace LessonWebProject.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EFDBContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<EFDBUserTaskContext>(options =>
+            options.UseSqlServer(Parameters.ConnectionString));
 
             services.AddDbContext<ApplicationDbContext>(options =>
              options.UseSqlServer(

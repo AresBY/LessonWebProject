@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Spider.JsonDeserializeClasses
+namespace LessonWebProject.Crawler.JsonDeserializeClasses
 {
     public class ApiLimit
     {
@@ -19,3 +19,5 @@ namespace Spider.JsonDeserializeClasses
         public Data data { get; set; }
     }
 }
+
+

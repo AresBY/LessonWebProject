@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
-    [DbContext(typeof(EFDBContext))]
+    [DbContext(typeof(EFDBUserTaskContext))]
     [Migration("20210521110521_second")]
     partial class second
     {
