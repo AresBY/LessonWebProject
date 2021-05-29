@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Common
+namespace LessonWebProject.Common
 {
-    public static class Parameters
+    public static class CommonStaticParameters
     {
         public const string ConnectionString = "Server=localhost;Database=Presentation;Trusted_Connection=True;MultipleActiveResultSets=true";
     }

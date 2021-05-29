@@ -28,8 +28,7 @@ namespace LessonWebProject.Crawler
             var dbTasks = _userTaskRepository.GetAllUsersTasks();
           
             IEnumerable<CategoryType> categories = dbTasks.Select(t => t.CategoryType).Distinct();
-
-            //foreach (var v in categories) Console.WriteLine(v);
+        
             List<FoundAdDBModel> output = new List<FoundAdDBModel>();
             foreach (var category in categories)
             {
@@ -42,7 +41,6 @@ namespace LessonWebProject.Crawler
                     output.AddRange(currentAds.Select(t => t.toFoundAdDBModel(task.UserID, task.CategoryType)));
                 }
             }
-
             _foundTaskRepository.SaveAds(output);
         }
 

@@ -10,7 +10,7 @@ using LessonWebProject.Data;
 using LessonWebProject.Data.Repository.Implementations;
 using LessonWebProject.Data.Repository.Interfaces;
 using LessonWebProject.BusinessLogic.Services;
-using Common;
+using LessonWebProject.Common;
 
 namespace LessonWebProject.Web
 {
@@ -27,11 +27,9 @@ namespace LessonWebProject.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<EFDBUserTaskContext>(options =>
-            options.UseSqlServer(Parameters.ConnectionString));
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-             options.UseSqlServer(
-                 Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(CommonStaticParameters.ConnectionString));
+       
+            services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(CommonStaticParameters.ConnectionString));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

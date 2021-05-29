@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "EmailSenderWorkerService": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 using LessonWebProject.Common;
-using LessonWebProject.Crawler;
 using LessonWebProject.Data;
 using LessonWebProject.Data.Repository.Implementations;
 using LessonWebProject.Data.Repository.Interfaces;
+using LessonWebProject.EmailSender;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LessonWebProject.CrawlerWorkerService
+namespace LessonWebProject.EmailSenderWorkerService
 {
     public class Program
     {
@@ -24,14 +24,11 @@ namespace LessonWebProject.CrawlerWorkerService
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddDbContext<EFDBUserTaskContext>(options => options.UseSqlServer(CommonStaticParameters.ConnectionString));
+                    services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(CommonStaticParameters.ConnectionString));
                     services.AddDbContext<EFDBFoundAdContext>(options => options.UseSqlServer(CommonStaticParameters.ConnectionString));
-                    services.AddTransient<IUserTaskRepository, EFUserTaskRepository>();
                     services.AddTransient<IFoundAdsRepository, EFFoundAdsRepository>();
-                    services.AddTransient<CrawlerService>();
+                    services.AddTransient<SenderService>();
                     services.AddHostedService<Worker>();
                 });
     }
 }
-
-
