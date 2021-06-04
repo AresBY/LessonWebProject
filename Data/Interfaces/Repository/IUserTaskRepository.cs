@@ -1,7 +1,8 @@
-﻿using LessonWebProject.Common.Models.DB;
+﻿
+using LessonWebProject.Data.Models.DB;
 using System.Collections.Generic;
 
-namespace LessonWebProject.Data.Repository.Interfaces
+namespace LessonWebProject.Data.Interfaces.Repository
 {
     public interface IUserTaskRepository
     {

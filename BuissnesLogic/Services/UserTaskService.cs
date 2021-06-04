@@ -1,8 +1,7 @@
-﻿using LessonWebProject.Common;
-using LessonWebProject.Data.Repository.Interfaces;
-using LessonWebProject.Common.Models.DB;
-using LessonWebProject.Common.Models.View;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using LessonWebProject.Data.Models.View;
+using LessonWebProject.Data.Models.DB;
+using LessonWebProject.Data.Interfaces.Repository;
 
 namespace LessonWebProject.BusinessLogic.Services
 {

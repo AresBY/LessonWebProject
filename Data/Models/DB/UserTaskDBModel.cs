@@ -4,23 +4,20 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace LessonWebProject.Common.Models.View
-{
-    public class UserTaskViewModel
+namespace LessonWebProject.Data.Models.DB
+{ 
+    public class UserTaskDBModel
     {
-        public UserTaskViewModel() { }
-        public UserTaskViewModel(CategoryType categoryType, int maxPrice, string keyWords)
-        {
-            CategoryType = categoryType;
-            Price = maxPrice;
-            Keywords = keyWords;
-        }
-
         [Key]
         public int ID { get; set; }
+        public string UserID { get; set; }
         public CategoryType CategoryType { get; set; }
         public int Price { get; set; }
         public string Keywords { get; set; }
+
+        public override string ToString()
+        {
+            return $"UserID: {UserID} Type: {CategoryType} Price: {Price} Keywords {Keywords}";
+        }
     }
-   
 }

@@ -1,17 +1,17 @@
-﻿using LessonWebProject.Data.Repository.Interfaces;
-using LessonWebProject.Common.Models.DB;
-using LessonWebProject.Data;
+﻿using LessonWebProject.Data;
+using LessonWebProject.Data.Interfaces.Repository;
+using LessonWebProject.Data.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LessonWebProject.Data.Repository.Implementations
+namespace LessonWebProject.Data.Implementations.Repository
 {
     public class EFUserTaskRepository : IUserTaskRepository
     {
-        private readonly EFDBUserTaskContext context;
-        public EFUserTaskRepository(EFDBUserTaskContext context)
+        private readonly EFContext context;
+        public EFUserTaskRepository(EFContext context)
         {
             this.context = context;
         }

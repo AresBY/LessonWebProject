@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crawler", "Crawler\Crawler.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrawlerWorkerService", "CrawlerWorkerService\CrawlerWorkerService.csproj", "{CEB11C09-4F24-4542-8246-B8E18BF513F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{337B1EE5-95DC-4522-96A7-9D0EBF37CDBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSender", "EmailSender\EmailSender.csproj", "{337B1EE5-95DC-4522-96A7-9D0EBF37CDBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSenderWorkerService", "EmailSenderWorkerService\EmailSenderWorkerService.csproj", "{82AFCD93-7818-48D6-8BAB-B028279716D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSenderWorkerService", "EmailSenderWorkerService\EmailSenderWorkerService.csproj", "{82AFCD93-7818-48D6-8BAB-B028279716D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUser", "DataUser\DataUser.csproj", "{8CB9222F-9DD0-4632-A367-FCFA97D49168}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{82AFCD93-7818-48D6-8BAB-B028279716D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82AFCD93-7818-48D6-8BAB-B028279716D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82AFCD93-7818-48D6-8BAB-B028279716D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CB9222F-9DD0-4632-A367-FCFA97D49168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CB9222F-9DD0-4632-A367-FCFA97D49168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CB9222F-9DD0-4632-A367-FCFA97D49168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CB9222F-9DD0-4632-A367-FCFA97D49168}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

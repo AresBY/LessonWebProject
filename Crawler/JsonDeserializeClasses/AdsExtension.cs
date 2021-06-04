@@ -1,6 +1,6 @@
 ﻿using LessonWebProject.Common.Enums;
-using LessonWebProject.Common.Models.DB;
 using LessonWebProject.Crawler.JsonDeserializeClasses;
+using LessonWebProject.Data.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +9,9 @@ namespace LessonWebProject.Crawler
 {
     public static class AdsExtension
     {
-        public static FoundAdDBModel toFoundAdDBModel(this Product input, string userID, CategoryType categoryType)
+        public static AdDBModel toFoundAdDBModel(this Product input, string userID, CategoryType categoryType)
         {
-            FoundAdDBModel output = new FoundAdDBModel()
+            AdDBModel output = new AdDBModel()
             {
                 UserID = userID,
                 CategoryType = categoryType,

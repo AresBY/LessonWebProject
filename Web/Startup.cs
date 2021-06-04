@@ -1,4 +1,3 @@
-using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -7,10 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using LessonWebProject.Data;
-using LessonWebProject.Data.Repository.Implementations;
-using LessonWebProject.Data.Repository.Interfaces;
 using LessonWebProject.BusinessLogic.Services;
-using LessonWebProject.Common;
+using LessonWebProject.Data.Interfaces.Repository;
+using LessonWebProject.Data.Implementations.Repository;
+using LessonWebProject.DataUser;
 
 namespace LessonWebProject.Web
 {
@@ -26,12 +25,12 @@ namespace LessonWebProject.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EFDBUserTaskContext>(options =>
-            options.UseSqlServer(CommonStaticParameters.ConnectionString));
+            services.AddDbContext<EFContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
        
-            services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(CommonStaticParameters.ConnectionString));
+            services.AddDbContext<UserDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<UserDbContext>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

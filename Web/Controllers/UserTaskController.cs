@@ -1,8 +1,7 @@
-﻿
-using LessonWebProject.BusinessLogic.Services;
+﻿using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Common;
-using LessonWebProject.Common.Models.DB;
-using LessonWebProject.Common.Models.View;
+using LessonWebProject.Data.Models.DB;
+using LessonWebProject.Data.Models.View;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 

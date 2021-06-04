@@ -1,8 +1,5 @@
 ﻿using LessonWebProject.Common.Enums;
-using LessonWebProject.Common.Models.DB;
 using LessonWebProject.Crawler.JsonDeserializeClasses;
-using LessonWebProject.Data;
-using LessonWebProject.Data.Repository.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +7,8 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Linq;
+using LessonWebProject.Data.Models.DB;
+using LessonWebProject.Data.Interfaces.Repository;
 
 namespace LessonWebProject.Crawler
 {
@@ -29,7 +28,7 @@ namespace LessonWebProject.Crawler
           
             IEnumerable<CategoryType> categories = dbTasks.Select(t => t.CategoryType).Distinct();
         
-            List<FoundAdDBModel> output = new List<FoundAdDBModel>();
+            List<AdDBModel> output = new List<AdDBModel>();
             foreach (var category in categories)
             {
                 var adsByCategory = GetAdsFromKufarByCategory(category);

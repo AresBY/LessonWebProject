@@ -1,26 +1,27 @@
-﻿using LessonWebProject.Common.Models.DB;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using LessonWebProject.Data.Repository.Interfaces;
 using LessonWebProject.Data;
 using System.Linq;
+using LessonWebProject.Data.Models.DB;
+using LessonWebProject.Data.Interfaces.Repository;
+using LessonWebProject.DataUser;
 
 namespace LessonWebProject.EmailSender
 {
     public class SenderService
     {
         private readonly IFoundAdsRepository _foundTaskRepository;
-        private readonly ApplicationDbContext _applicationDbContext;
-        public SenderService(IFoundAdsRepository foundTaskRepository, ApplicationDbContext applicationDbContext)
+        private readonly UserDbContext _applicationDbContext;
+        public SenderService(IFoundAdsRepository foundTaskRepository, UserDbContext applicationDbContext)
         {
             _foundTaskRepository = foundTaskRepository;
             _applicationDbContext = applicationDbContext;
         }
        
-        private  async Task SendEmailAsync(string emailRecipient, IEnumerable<FoundAdDBModel> foundAdDBModel)
+        private  async Task SendEmailAsync(string emailRecipient, IEnumerable<AdDBModel> foundAdDBModel)
         {
             MailMessage m = new MailMessage(StaticParameters.EmailSender, emailRecipient);
             m.Subject = StaticParameters.Title;

@@ -25,7 +25,9 @@ namespace LessonWebProject.EmailSenderWorkerService
                 while (!stoppingToken.IsCancellationRequested)
                 {
                     myScopedService.DoSending();
+                    Console.WriteLine("Send mail");
                     await Task.Delay(10000, stoppingToken);
+                   
                 }
             }
         }

@@ -1,9 +1,10 @@
-﻿using LessonWebProject.Common.Models.DB;
+﻿
+using LessonWebProject.Data.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LessonWebProject.Common.Models.View
+namespace LessonWebProject.Data.Models.View
 {
     public static class UserTaskViewModelExtension
     {

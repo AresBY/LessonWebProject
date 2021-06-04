@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace LessonWebProject.Data
+namespace LessonWebProject.DataUser
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class UserDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public UserDbContext(DbContextOptions<UserDbContext> options)
             : base(options)
         {
 

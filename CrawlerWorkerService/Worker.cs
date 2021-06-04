@@ -26,6 +26,7 @@ namespace LessonWebProject.CrawlerWorkerService
                 while (!stoppingToken.IsCancellationRequested)
                 {
                     myScopedService.DoSearching();
+                    Console.WriteLine("Got ads");
                     await Task.Delay(3000, stoppingToken);
                 }
             }
