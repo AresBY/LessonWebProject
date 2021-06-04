@@ -21,13 +21,14 @@ namespace LessonWebProject.Crawler
             _userTaskRepository = userTaskRepository;
             _foundTaskRepository = foundTaskRepository;
         }
-
+       
         public void DoSearching()
         {
             var dbTasks = _userTaskRepository.GetAllUsersTasks();
-          
+
+            // Тут сделанно именно в таком порялке, чтобы максимально сократить кол-во вызовов от Куфара
             IEnumerable<CategoryType> categories = dbTasks.Select(t => t.CategoryType).Distinct();
-        
+
             List<AdDBModel> output = new List<AdDBModel>();
             foreach (var category in categories)
             {
