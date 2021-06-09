@@ -13,9 +13,9 @@ namespace LessonWebProject.EmailSender
 {
     public class SenderService
     {
-        private readonly IFoundAdsRepository _foundTaskRepository;
+        private readonly IAdsRepository _foundTaskRepository;
         private readonly UserDbContext _applicationDbContext;
-        public SenderService(IFoundAdsRepository foundTaskRepository, UserDbContext applicationDbContext)
+        public SenderService(IAdsRepository foundTaskRepository, UserDbContext applicationDbContext)
         {
             _foundTaskRepository = foundTaskRepository;
             _applicationDbContext = applicationDbContext;
@@ -44,7 +44,7 @@ namespace LessonWebProject.EmailSender
 
         public void DoSending()
         {
-            var ads = _foundTaskRepository.GetAllFoundAds();
+            var ads = _foundTaskRepository.GetAllAds();
 
             var usersID = ads.Select(t => t.UserID).Distinct();
             foreach (var userId in usersID)

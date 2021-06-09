@@ -3,6 +3,7 @@ using LessonWebProject.Common;
 using LessonWebProject.Data.Models.DB;
 using LessonWebProject.Data.Models.View;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace LessonWebProject.Web.Controllers
@@ -15,27 +16,50 @@ namespace LessonWebProject.Web.Controllers
         {
             _servicesManager = servicesManager;
         }
-        public IActionResult ShowTasks()
+        public IActionResult ShowTasks(int? taskID = null)
         {
-            return View(_servicesManager._userTaskService.GetAllUserTasks(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            return View(_servicesManager._userTaskService.GetTasksData(User.FindFirstValue(ClaimTypes.NameIdentifier), taskID));
         }
 
-        public IActionResult DeleteTasks(params int[] tasksID)
+        public IActionResult DeleteTasks(params int[] taskID)
         {
-            _servicesManager._userTaskService.RemoveTasksByID(User.FindFirstValue(ClaimTypes.NameIdentifier), tasksID);
+            _servicesManager._userTaskService.RemoveTasksByID(User.FindFirstValue(ClaimTypes.NameIdentifier), taskID);
             return RedirectToAction("ShowTasks");
         }
 
         [HttpPost]
-        public IActionResult OperationWithTask(int tasksID, string operation)
+        public IActionResult OperationWithTask(int taskID, string operation)
         {
-            var nameMethod = operation.CompareTo("delete") == 0 ? "DeleteTasks" : "EditTask";
-            return RedirectToAction(nameMethod, new { tasksID });
+            string nameMethod = string.Empty;
+            switch (operation)
+            {
+                case "delete":
+                    {
+                        nameMethod = "DeleteTasks";
+                        break;
+                    }
+                case "edit":
+                    {
+                        nameMethod = "EditTask";
+                        break;
+                    }
+                case "info":
+                    {
+                        nameMethod = "ShowTasks";
+                        break;
+                    }
+                case "create":
+                    {
+                        nameMethod = "CreateNewTask";
+                        break;
+                    }
+            }
+            return RedirectToAction(nameMethod, new { taskID });
         }
-
-        public IActionResult EditTask(int tasksID)
+       
+        public IActionResult EditTask(int taskID)
         {
-            UserTaskDBModel model = _servicesManager._userTaskService.GetTaskById(tasksID);
+            UserTaskDBModel model = _servicesManager._userTaskService.GetTaskById(taskID);
             if (model != null)
             {
                 return View(model.toContract());
@@ -54,7 +78,7 @@ namespace LessonWebProject.Web.Controllers
         public IActionResult GetEditTaskData(int taskID, UserTaskViewModel userTaskViewModel)
         {
             _servicesManager._userTaskService.RemoveTasksByID(User.FindFirstValue(ClaimTypes.NameIdentifier), taskID);
-           
+
             _servicesManager._userTaskService.CreateTask(User.FindFirstValue(ClaimTypes.NameIdentifier), userTaskViewModel);
             return RedirectToAction("ShowTasks");
         }
@@ -62,7 +86,7 @@ namespace LessonWebProject.Web.Controllers
         [HttpPost]
         public IActionResult GetNewTaskData(UserTaskViewModel userTaskViewModel)
         {
-            _servicesManager._userTaskService.CreateTask(User.FindFirstValue(ClaimTypes.NameIdentifier),userTaskViewModel);
+            _servicesManager._userTaskService.CreateTask(User.FindFirstValue(ClaimTypes.NameIdentifier), userTaskViewModel);
 
             return RedirectToAction("ShowTasks");
         }

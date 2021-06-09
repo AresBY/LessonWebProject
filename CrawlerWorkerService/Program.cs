@@ -38,8 +38,8 @@ namespace LessonWebProject.CrawlerWorkerService
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddDbContext<EFContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-                    services.AddTransient<IUserTaskRepository, EFUserTaskRepository>();
-                    services.AddTransient<IFoundAdsRepository, EFFoundAdsRepository>();
+                    services.AddTransient<IUserTaskRepository, UserTaskRepository>();
+                    services.AddTransient<IAdsRepository, AdsRepository>();
                     services.AddTransient<CrawlerService>();
                     services.AddHostedService<Worker>();
                 });

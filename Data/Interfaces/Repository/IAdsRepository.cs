@@ -6,9 +6,12 @@ using System.Text;
 
 namespace LessonWebProject.Data.Interfaces.Repository
 {
-    public interface IFoundAdsRepository
+    public interface IAdsRepository
     {
         void SaveAds(List<AdDBModel> output);
-        IEnumerable<AdDBModel> GetAllFoundAds();
+        IEnumerable<AdDBModel> GetAllAds();
+        IEnumerable<AdDBModel> GetAdsByIdTask(int taskID);
+        void Clear();
+        void SaveFreshAds(List<AdDBModel> output);
     }
 }

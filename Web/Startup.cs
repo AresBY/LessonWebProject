@@ -52,9 +52,10 @@ namespace LessonWebProject.Web
 
 
 
-            services.AddTransient<IUserTaskRepository, EFUserTaskRepository>();
+            services.AddTransient<IUserTaskRepository, UserTaskRepository>();
+            services.AddTransient<IAdsRepository, AdsRepository>();
 
-           
+
             services.AddTransient<ServicesManager>();
             services.AddTransient<UserTaskService>();
         }

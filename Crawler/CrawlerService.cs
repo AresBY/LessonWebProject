@@ -15,13 +15,13 @@ namespace LessonWebProject.Crawler
     public class CrawlerService
     {
         private readonly IUserTaskRepository _userTaskRepository;
-        private readonly IFoundAdsRepository _foundTaskRepository;
-        public CrawlerService(IUserTaskRepository userTaskRepository, IFoundAdsRepository foundTaskRepository)
+        private readonly IAdsRepository _adRepository;
+        public CrawlerService(IUserTaskRepository userTaskRepository, IAdsRepository adRepository)
         {
             _userTaskRepository = userTaskRepository;
-            _foundTaskRepository = foundTaskRepository;
+            _adRepository = adRepository;
         }
-       
+
         public void DoSearching()
         {
             var dbTasks = _userTaskRepository.GetAllUsersTasks();
@@ -38,16 +38,18 @@ namespace LessonWebProject.Crawler
                 foreach (var task in tasks)
                 {
                     IEnumerable<Product> currentAds = adsByCategory.data.Where(t => t.price <= task.Price);
-                    output.AddRange(currentAds.Select(t => t.toFoundAdDBModel(task.UserID, task.CategoryType)));
+                    output.AddRange(currentAds.Select(t => t.toAdDBModel(task.ID, task.UserID, task.CategoryType, t.Id)));
                 }
             }
-            _foundTaskRepository.SaveAds(output);
+
+            _adRepository.SaveFreshAds(output);
+          
         }
 
         public void ShowAds()
         {
-            var res = _foundTaskRepository.GetAllFoundAds();
-            foreach(var v in res)
+            var res = _adRepository.GetAllAds();
+            foreach (var v in res)
             {
                 Console.WriteLine(v);
             }

@@ -8,10 +8,10 @@ using System.Text;
 
 namespace LessonWebProject.Data.Implementations.Repository
 {
-    public class EFUserTaskRepository : IUserTaskRepository
+    public class UserTaskRepository : IUserTaskRepository
     {
         private readonly EFContext context;
-        public EFUserTaskRepository(EFContext context)
+        public UserTaskRepository(EFContext context)
         {
             this.context = context;
         }
@@ -30,7 +30,7 @@ namespace LessonWebProject.Data.Implementations.Repository
             return context.UserTasks.Where(p => p.UserID == userID);
         }
 
-        public int GetCountTasksByID(string userID)
+        public int GetCountTasksByUserID(string userID)
         {
             return context.UserTasks.Where(p => p.UserID == userID).Count();
         }

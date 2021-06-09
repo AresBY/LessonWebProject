@@ -9,7 +9,7 @@ namespace LessonWebProject.Data.Interfaces.Repository
         IEnumerable<UserTaskDBModel> GetAllUsersTasks();
         IEnumerable<UserTaskDBModel> GetAllUserTasksByID(string userID);
         void RemoveUserTasksByID(string userID, int[] tasksID);
-        int GetCountTasksByID(string userID);
+        int GetCountTasksByUserID(string userID);
         UserTaskDBModel GetTaskById(int directoryID);
         void SaveUserTask(UserTaskDBModel model);
        

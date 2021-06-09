@@ -6,7 +6,7 @@ using System.Text;
 
 namespace LessonWebProject.Data.Models.DB
 {
-    public static class UserTaskDBModelExtension
+    public static class UserTaskViewModelExtension
     {
         public static UserTaskDBModel toDBModel(this UserTaskViewModel input, string userID)
         {

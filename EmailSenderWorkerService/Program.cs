@@ -40,7 +40,7 @@ namespace LessonWebProject.EmailSenderWorkerService
                 {
                     services.AddDbContext<UserDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                     services.AddDbContext<EFContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-                    services.AddTransient<IFoundAdsRepository, EFFoundAdsRepository>();
+                    services.AddTransient<IAdsRepository, AdsRepository>();
                     services.AddTransient<SenderService>();
                     services.AddHostedService<Worker>();
                 });

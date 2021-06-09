@@ -11,7 +11,7 @@ namespace LessonWebProject.Crawler
         private const string Login = "free2107@mail.ru";
         private const string Token = "bafda7c9982fb46ad760200719f5842d";
 
-        public const int LimitProducts = 2;
+        public const int LimitProducts = 5;
         public static string UrlLoginToken
         {
             get

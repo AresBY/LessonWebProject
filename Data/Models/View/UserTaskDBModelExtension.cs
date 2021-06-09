@@ -6,7 +6,7 @@ using System.Text;
 
 namespace LessonWebProject.Data.Models.View
 {
-    public static class UserTaskViewModelExtension
+    public static class UserTaskDBModelExtension
     {
         public static UserTaskViewModel toContract(this UserTaskDBModel input)
         {
