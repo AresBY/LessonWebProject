@@ -15,11 +15,12 @@
         }
     </style>
 </head>
+
 @if (Model.Tasks.Count != 0)
 {
     @using (Html.BeginForm("OperationWithTask", "UserTask", FormMethod.Post, new { id = "form1" }))
     {
-        <table>
+        <table style="width:100%">
             <tr>
                 <th>
                     Задания
@@ -28,56 +29,55 @@
                     Обьявления
                 </th>
             </tr>
+
             <tr>
-
-                @for (int i = 0; i < Model.Tasks.Count; i++)
-                {
-                <tr>
-                    <td>
-                        @Html.RadioButton("taskID", Model.Tasks[i].ID, new { id = i.ToString() })
-                        <label for=@i.ToString()>
-                            Категория: @Model.Tasks[i].CategoryType
-                            Макс. цена товара: @Model.Tasks[i].Price;
-                            Ключевые слова: @Model.Tasks[i].Keywords;
-                        </label>
-                    </td>
-                </tr>
-            }
-
-                @if (Model.Ads != null)
-                {
-                    @for (int j = 0; j < Model.Ads.Count; j++)
+                <td>
+                    @for (int i = 0; i < Model.Tasks.Count; i++)
                     {
-                        <tr colspan="2">
-                            <td>
+                        <p>
+                            @Html.RadioButton("taskID", Model.Tasks[i].ID, new { id = i.ToString() })
+                            <label for=@i.ToString()>
+                                Категория: @Model.Tasks[i].CategoryType
+                                Макс. цена товара: @Model.Tasks[i].Price;
+                                Ключевые слова: @Model.Tasks[i].Keywords;
+                            </label>
+                        </p>
+                    }
+
+                <td>
+                    @if (Model.Ads != null)
+                    {
+                        @for (int j = 0; j < Model.Ads.Count; j++)
+                        {
+                            <p>
                                 <label for=@j.ToString()>
                                     Категория: @Model.Ads[j].CategoryType;
                                     Макс.цена: @Model.Ads[j].Price;
                                     Телефон: @Model.Ads[j].Phone;
                                     Дата: @Model.Ads[j].WasFoundedDate;
                                 </label>
-                            </td>
-                        </tr>
+                            </p>
+                        }
                     }
-                }
+                </td>
+            </tr>
 
 
-                @*@using (Html.BeginForm("OperationWithTask", "UserTask", FormMethod.Post))
-                    {
-                        <input type="hidden" name="taskID" value=@Model[i].ID />
-                        <input type="hidden" name="operation" value="info" />
-                        <button type="submit">Инфо @Model[i].ID </button>
-                    }*@
+            @*@using (Html.BeginForm("OperationWithTask", "UserTask", FormMethod.Post))
+                {
+                    <input type="hidden" name="taskID" value=@Model[i].ID />
+                    <input type="hidden" name="operation" value="info" />
+                    <button type="submit">Инфо @Model[i].ID </button>
+                }*@
+        </table>
+        <p>
+            <button type="submit" form="form1" name="operation" value="delete">Удалить</button>
+            <button type="submit" form="form1" name="operation" value="create">Создать</button>
+            <button type="submit" form="form1" name="operation" value="edit">Редактировать</button>
+            <button type="submit" form="form1" name="operation" value="info">Инфо</button>
+        </p>
 
-            </table>
-            <p>
-                <button type="submit" form="form1" name="operation" value="delete">Удалить</button>
-                <button type="submit" form="form1" name="operation" value="create">Создать</button>
-                <button type="submit" form="form1" name="operation" value="edit">Редактировать</button>
-                <button type="submit" form="form1" name="operation" value="info">Инфо</button>
-            </p>
-
-        }
+    }
 }
 else
 {
