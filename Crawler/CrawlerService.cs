@@ -7,8 +7,8 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Linq;
-using LessonWebProject.Data.Models.DB;
 using LessonWebProject.Data.Interfaces.Repository;
+using LessonWebProject.Data.Models;
 
 namespace LessonWebProject.Crawler
 {

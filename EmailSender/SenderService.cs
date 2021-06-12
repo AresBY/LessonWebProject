@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using LessonWebProject.Data;
 using System.Linq;
-using LessonWebProject.Data.Models.DB;
 using LessonWebProject.Data.Interfaces.Repository;
 using LessonWebProject.DataUser;
+using LessonWebProject.Data.Models;
 
 namespace LessonWebProject.EmailSender
 {

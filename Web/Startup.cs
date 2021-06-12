@@ -58,6 +58,7 @@ namespace LessonWebProject.Web
 
             services.AddTransient<ServicesManager>();
             services.AddTransient<UserTaskService>();
+            services.AddTransient<AdsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,6 @@
 ﻿using LessonWebProject.Data;
 using LessonWebProject.Data.Interfaces.Repository;
-using LessonWebProject.Data.Models.DB;
+using LessonWebProject.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

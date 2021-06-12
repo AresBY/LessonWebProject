@@ -1,13 +1,13 @@
-﻿using LessonWebProject.Data.Models.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LessonWebProject.BusinessLogic.Entities
+namespace LessonWebProject.Web.Models
 {
-    public class ShowTasksEntity
+    public class ShowTasksModel
     {
-        public ShowTasksEntity(List<UserTaskViewModel> tasks, List<AdViewModel> ads)
+        public ShowTasksModel() { }
+        public ShowTasksModel(List<UserTaskViewModel> tasks, List<AdViewModel> ads)
         {
             Tasks = tasks;
             Ads = ads;

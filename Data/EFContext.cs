@@ -1,4 +1,4 @@
-﻿using LessonWebProject.Data.Models.DB;
+﻿using LessonWebProject.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LessonWebProject.Data

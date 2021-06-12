@@ -1,6 +1,6 @@
 ﻿using LessonWebProject.Common.Enums;
 using LessonWebProject.Crawler.JsonDeserializeClasses;
-using LessonWebProject.Data.Models.DB;
+using LessonWebProject.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

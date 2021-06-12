@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace LessonWebProject.Data.Models.DB
+namespace LessonWebProject.Data.Models
 {
     public class AdDBModel
     {

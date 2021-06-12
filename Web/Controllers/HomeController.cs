@@ -1,4 +1,4 @@
-﻿using LessonWebProject.Data.Models.View;
+﻿using LessonWebProject.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

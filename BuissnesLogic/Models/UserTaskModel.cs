@@ -1,14 +1,22 @@
 ﻿using LessonWebProject.Common.Enums;
+using LessonWebProject.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace LessonWebProject.Data.Models.DB
-{ 
-    public class UserTaskDBModel
+namespace LessonWebProject.BusinessLogic.Models
+{
+    public class UserTaskModel
     {
-        [Key]
+        public UserTaskModel() { }
+        public UserTaskModel(UserTaskDBModel input)
+        {
+            ID = input.ID;
+            UserID = input.UserID;
+            CategoryType = input.CategoryType;
+            Price = input.Price;
+            Keywords = input.Keywords;
+        }
         public int ID { get; set; }
         public string UserID { get; set; }
         public CategoryType CategoryType { get; set; }

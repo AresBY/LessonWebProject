@@ -1,5 +1,5 @@
 ﻿
-using LessonWebProject.Data.Models.DB;
+using LessonWebProject.Data.Models;
 using System.Collections.Generic;
 
 namespace LessonWebProject.Data.Interfaces.Repository

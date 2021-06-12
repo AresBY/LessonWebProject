@@ -7,9 +7,11 @@ namespace LessonWebProject.BusinessLogic.Services
     public class ServicesManager
     {
         public readonly UserTaskService _userTaskService;
-        public ServicesManager( UserTaskService userTaskService)
+        public readonly AdsService _adsService;
+        public ServicesManager(UserTaskService userTaskService, AdsService adsService)
         {
             _userTaskService = userTaskService;
+            _adsService = adsService;
         }
     }
 }
