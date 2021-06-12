@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using LessonWebProject.Data;
 using System.Linq;
 using LessonWebProject.Data.Interfaces.Repository;
-using LessonWebProject.DataUser;
 using LessonWebProject.Data.Models;
+using LessonWebProject.Data.Identity;
 
 namespace LessonWebProject.EmailSender
 {

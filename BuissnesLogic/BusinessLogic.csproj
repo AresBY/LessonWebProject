@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataUser\DataUser.csproj" />
     <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
 

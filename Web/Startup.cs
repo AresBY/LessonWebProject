@@ -9,7 +9,7 @@ using LessonWebProject.Data;
 using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Data.Interfaces.Repository;
 using LessonWebProject.Data.Implementations.Repository;
-using LessonWebProject.DataUser;
+using LessonWebProject.Data.Identity;
 
 namespace LessonWebProject.Web
 {

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BuissnesLogic\BusinessLogic.csproj" />
+    <ProjectReference Include="..\Data.Identity\Data.Identity.csproj" />
   </ItemGroup>
 
 </Project>

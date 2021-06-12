@@ -1,8 +1,8 @@
 using LessonWebProject.Common;
 using LessonWebProject.Data;
+using LessonWebProject.Data.Identity;
 using LessonWebProject.Data.Implementations.Repository;
 using LessonWebProject.Data.Interfaces.Repository;
-using LessonWebProject.DataUser;
 using LessonWebProject.EmailSender;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace LessonWebProject.DataUser
+namespace LessonWebProject.Data.Identity
 {
     public class UserDbContext : IdentityDbContext
     {
