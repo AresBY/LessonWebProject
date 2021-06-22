@@ -37,10 +37,6 @@ namespace LessonWebProject.BusinessLogic.Services
         {
             return input.Select(t => new UserTaskModel(t));
         }
-        private UserTaskModel ConvertToUserTaskModel(UserTaskDBModel input)
-        {
-            return new UserTaskModel(input);
-        }
 
         public int GetCountTasks(string userID)
         {
@@ -49,7 +45,7 @@ namespace LessonWebProject.BusinessLogic.Services
 
         public UserTaskModel GetTaskById(int tasksID)
         {
-            return ConvertToUserTaskModel(_userTaskRepository.GetTaskById(tasksID));
+            return new UserTaskModel(_userTaskRepository.GetTaskById(tasksID));
         }
     }
 }

@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSenderWorkerService", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Identity", "Data.Identity\Data.Identity.csproj", "{FCF2C0D3-FCEC-4BF8-864B-2997E9A732C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramAgentWorker", "TelegramAgentWorker\TelegramAgentWorker.csproj", "{297DD8B7-1AD4-42AC-8365-96F8D58F7F76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramAgentService", "TelegramAgentService\TelegramAgentService.csproj", "{ABDE93C0-814E-49A6-9DB9-FB31FBA5C709}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{FCF2C0D3-FCEC-4BF8-864B-2997E9A732C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF2C0D3-FCEC-4BF8-864B-2997E9A732C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF2C0D3-FCEC-4BF8-864B-2997E9A732C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{297DD8B7-1AD4-42AC-8365-96F8D58F7F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{297DD8B7-1AD4-42AC-8365-96F8D58F7F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{297DD8B7-1AD4-42AC-8365-96F8D58F7F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{297DD8B7-1AD4-42AC-8365-96F8D58F7F76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABDE93C0-814E-49A6-9DB9-FB31FBA5C709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABDE93C0-814E-49A6-9DB9-FB31FBA5C709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABDE93C0-814E-49A6-9DB9-FB31FBA5C709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABDE93C0-814E-49A6-9DB9-FB31FBA5C709}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
