@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using LessonWebProject.BusinessLogic.Extensions;
 
 namespace LessonWebProject.BusinessLogic.Services
 {
@@ -18,15 +19,7 @@ namespace LessonWebProject.BusinessLogic.Services
 
         public IEnumerable<AdModel> GetAdsByTaskID(int taskID)
         {
-            return ConvertToAdModel(_adsRepository.GetAdsByIdTask(taskID));
-        }
-        private IEnumerable<AdModel> ConvertToAdModel(IEnumerable<AdDBModel> input)
-        {
-            return input.Select(t => new AdModel(t));
-        }
-        private AdModel ConvertToAdModel(AdDBModel input)
-        {
-            return new AdModel(input);
+            return _adsRepository.GetAdsByIdTask(taskID).toAdModel();
         }
     }
 }

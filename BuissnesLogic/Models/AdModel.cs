@@ -8,18 +8,8 @@ namespace LessonWebProject.BusinessLogic.Models
 {
     public class AdModel
     {
-        public AdModel(AdDBModel input)
-        {
-            ID = input.ID;
-            TaskID = input.TaskID;
-            UserID = input.UserID;
-            KufarID = input.KufarID;
-            CategoryType = input.CategoryType;
-            Price = input.Price;
-            Description = input.Description;
-            Phone = input.Phone;
-            WasFoundedDate = input.WasFoundedDate;
-        }
+        public AdModel() { }
+       
         public int ID { get; set; }
         public int TaskID { get; set; }
         public string UserID { get; set; }

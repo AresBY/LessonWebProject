@@ -4,10 +4,10 @@ using System.Text;
 
 namespace LessonWebProject.Web.Models
 {
-    public class ShowTasksModel
+    public class ShowTasksViewModel
     {
-        public ShowTasksModel() { }
-        public ShowTasksModel(List<UserTaskViewModel> tasks, List<AdViewModel> ads)
+        public ShowTasksViewModel() { }
+        public ShowTasksViewModel(List<UserTaskViewModel> tasks, List<AdViewModel> ads)
         {
             Tasks = tasks;
             Ads = ads;

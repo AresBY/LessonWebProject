@@ -10,16 +10,7 @@ namespace LessonWebProject.Web.Models
     public class AdViewModel
     {
         public AdViewModel() { }
-        public AdViewModel(AdModel input)
-        {
-            ID = input.ID;
-            UserID = input.UserID;
-            CategoryType = input.CategoryType;
-            Price = input.Price;
-            Phone = input.Phone;
-            WasFoundedDate = input.WasFoundedDate;
-            KufarID = input.KufarID;
-        }
+        
         public int ID { get; set; }
         public string UserID { get; set; }
         public string KufarID { get; set; }

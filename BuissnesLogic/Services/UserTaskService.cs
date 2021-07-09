@@ -20,7 +20,7 @@ namespace LessonWebProject.BusinessLogic.Services
 
         public void CreateTask(UserTaskModel userTaskModel)
         {
-            _userTaskRepository.SaveUserTask(userTaskModel.ToDBModel());
+            _userTaskRepository.SaveUserTask(userTaskModel.toUserTaskDBModel());
         }
 
         public void RemoveTasksByID(string userID, params int[] tasksID)
@@ -30,22 +30,16 @@ namespace LessonWebProject.BusinessLogic.Services
 
         public IEnumerable<UserTaskModel> GetAllUserTasks(string userID)
         {
-            return ConvertToUserTaskModel(_userTaskRepository.GetAllUserTasksByID(userID));
-        }
-
-        private IEnumerable<UserTaskModel> ConvertToUserTaskModel(IEnumerable<UserTaskDBModel> input)
-        {
-            return input.Select(t => new UserTaskModel(t));
+            return _userTaskRepository.GetAllUserTasksByID(userID).toUserTaskModel();
         }
 
         public int GetCountTasks(string userID)
         {
             return _userTaskRepository.GetCountTasksByUserID(userID);
         }
-
         public UserTaskModel GetTaskById(int tasksID)
         {
-            return new UserTaskModel(_userTaskRepository.GetTaskById(tasksID));
+            return _userTaskRepository.GetTaskById(tasksID).toUserTaskModel();
         }
     }
 }

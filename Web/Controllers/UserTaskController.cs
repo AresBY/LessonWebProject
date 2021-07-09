@@ -2,13 +2,14 @@
 using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Common;
 using LessonWebProject.Data.Models;
-using LessonWebProject.Web.Exrensions;
+using LessonWebProject.Web.Extensions;
 using LessonWebProject.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Linq;
 using System;
+
 
 namespace LessonWebProject.Web.Controllers
 {
@@ -24,21 +25,15 @@ namespace LessonWebProject.Web.Controllers
         {
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            ShowTasksModel showTasksModel = new ShowTasksModel();
-            showTasksModel.Tasks = ConvertToUserTaskViewModel(_servicesManager._userTaskService.GetAllUserTasks(userID)).ToList();
-            showTasksModel.Ads = taskID != null ? ConvertToAdsViewModel(_servicesManager._adsService.GetAdsByTaskID((int)taskID)).ToList() : null;
+            ShowTasksViewModel showTasksModel = new ShowTasksViewModel();
+            showTasksModel.Tasks = _servicesManager._userTaskService.GetAllUserTasks(userID).toContract().ToList();
+            showTasksModel.Ads = taskID != null ? _servicesManager._adsService.GetAdsByTaskID((int)taskID).toContract().ToList() : null;
             return View(showTasksModel);
         }
 
-        private IEnumerable<AdViewModel> ConvertToAdsViewModel(IEnumerable<AdModel> input)
-        {
-            return input.Select(t => new AdViewModel(t));
-        }
+      
 
-        private IEnumerable<UserTaskViewModel> ConvertToUserTaskViewModel(IEnumerable<UserTaskModel> input)
-        {
-            return input.Select(t => new UserTaskViewModel(t));
-        }
+       
         public IActionResult DeleteTasks(params int[] taskID)
         {
             _servicesManager._userTaskService.RemoveTasksByID(User.FindFirstValue(ClaimTypes.NameIdentifier), taskID);
@@ -80,7 +75,7 @@ namespace LessonWebProject.Web.Controllers
             var model = _servicesManager._userTaskService.GetTaskById(taskID);
             if (model != null)
             {
-                return View(new UserTaskViewModel(model));
+                return View(model.toContract());
             }
             else
             {
@@ -99,7 +94,7 @@ namespace LessonWebProject.Web.Controllers
             _servicesManager._userTaskService.RemoveTasksByID(userID, taskID);
 
             userTaskViewModel.UserID = userID;
-            _servicesManager._userTaskService.CreateTask(userTaskViewModel.ToModel());
+            _servicesManager._userTaskService.CreateTask(userTaskViewModel.toUserTaskModel());
             return RedirectToAction("ShowTasks");
         }
 
@@ -107,7 +102,7 @@ namespace LessonWebProject.Web.Controllers
         public IActionResult GetNewTaskData(UserTaskViewModel userTaskViewModel)
         {
             userTaskViewModel.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _servicesManager._userTaskService.CreateTask(userTaskViewModel.ToModel());
+            _servicesManager._userTaskService.CreateTask(userTaskViewModel.toUserTaskModel());
 
             return RedirectToAction("ShowTasks");
         }
