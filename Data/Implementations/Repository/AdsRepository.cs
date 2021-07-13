@@ -49,6 +49,11 @@ namespace LessonWebProject.Data.Implementations.Repository
             _context.SaveChanges();
             SaveAds(input);
         }
+
+        public IEnumerable<AdDBModel> GetAllUserAds(string userID)
+        {
+            return _context.Ads.Where(t => t.UserID == userID).Select(t => t);
+        }
     }
 }
 

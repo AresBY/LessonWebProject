@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LessonWebProject.EmailSenderWorkerService
+namespace LessonWebProject.EmailSenderWorker
 {
     public class Worker : BackgroundService
     {

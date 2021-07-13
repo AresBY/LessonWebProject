@@ -1,4 +1,4 @@
-using LessonWebProject.TelegramAgentService;
+using LessonWebProject.TelegramAgent;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

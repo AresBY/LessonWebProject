@@ -24,6 +24,7 @@ namespace LessonWebProject.Web.Controllers
         public IActionResult ShowTasks(int? taskID = null)
         {
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+          
 
             ShowTasksViewModel showTasksModel = new ShowTasksViewModel();
             showTasksModel.Tasks = _servicesManager._userTaskService.GetAllUserTasks(userID).toContract().ToList();

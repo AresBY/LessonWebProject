@@ -13,17 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crawler", "Crawler\Crawler.csproj", "{9AE51B88-4BB6-4FE4-806E-B63701815C72}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrawlerWorkerService", "CrawlerWorkerService\CrawlerWorkerService.csproj", "{CEB11C09-4F24-4542-8246-B8E18BF513F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrawlerWorker", "CrawlerWorkerService\CrawlerWorker.csproj", "{CEB11C09-4F24-4542-8246-B8E18BF513F0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSender", "EmailSender\EmailSender.csproj", "{337B1EE5-95DC-4522-96A7-9D0EBF37CDBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSenderWorkerService", "EmailSenderWorkerService\EmailSenderWorkerService.csproj", "{82AFCD93-7818-48D6-8BAB-B028279716D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSenderWorker", "EmailSenderWorkerService\EmailSenderWorker.csproj", "{82AFCD93-7818-48D6-8BAB-B028279716D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Identity", "Data.Identity\Data.Identity.csproj", "{FCF2C0D3-FCEC-4BF8-864B-2997E9A732C5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramAgentWorker", "TelegramAgentWorker\TelegramAgentWorker.csproj", "{297DD8B7-1AD4-42AC-8365-96F8D58F7F76}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramAgentService", "TelegramAgentService\TelegramAgentService.csproj", "{ABDE93C0-814E-49A6-9DB9-FB31FBA5C709}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramAgent", "TelegramAgentService\TelegramAgent.csproj", "{ABDE93C0-814E-49A6-9DB9-FB31FBA5C709}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic.Moq", "BusinessLogic.Moq\BusinessLogic.Moq.csproj", "{28EB4E25-7E92-4293-8DAD-E012A311E942}"
 EndProject

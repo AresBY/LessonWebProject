@@ -10,6 +10,8 @@ using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Data.Interfaces.Repository;
 using LessonWebProject.Data.Implementations.Repository;
 using LessonWebProject.Data.Identity;
+using LessonWebProject.Data.Identity.Interfaces.Repository;
+using LessonWebProject.Data.Identity.Implementations.Repository;
 
 namespace LessonWebProject.Web
 {
@@ -29,8 +31,8 @@ namespace LessonWebProject.Web
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
        
             services.AddDbContext<UserDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<UserDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+             .AddEntityFrameworkStores<UserDbContext>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -51,13 +53,15 @@ namespace LessonWebProject.Web
 
 
 
+           
 
             services.AddTransient<IUserTaskRepository, UserTaskRepository>();
             services.AddTransient<IAdsRepository, AdsRepository>();
-
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddTransient<ServicesManager>();
             services.AddTransient<UserTaskService>();
+            services.AddTransient<HomeService>();
             services.AddTransient<AdsService>();
         }
 

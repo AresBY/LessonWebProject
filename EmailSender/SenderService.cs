@@ -19,10 +19,12 @@ namespace LessonWebProject.EmailSender
         {
             _foundTaskRepository = foundTaskRepository;
             _applicationDbContext = applicationDbContext;
+         
         }
        
         private  async Task SendEmailAsync(string emailRecipient, IEnumerable<AdDBModel> foundAdDBModel)
         {
+          
             MailMessage m = new MailMessage(StaticParameters.EmailSender, emailRecipient);
             m.Subject = StaticParameters.Title;
             m.Body = $"{StaticParameters.HelloMessage} \r\n";

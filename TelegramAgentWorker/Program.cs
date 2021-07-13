@@ -1,7 +1,7 @@
 using LessonWebProject.Data;
 using LessonWebProject.Data.Implementations.Repository;
 using LessonWebProject.Data.Interfaces.Repository;
-using LessonWebProject.TelegramAgentService;
+using LessonWebProject.TelegramAgent;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using LessonWebProject.Data.Identity.Interfaces.Repository;
+using LessonWebProject.Data.Identity.Implementations.Repository;
+using LessonWebProject.Data.Identity;
 
 namespace LessonWebProject.TelegramAgentWorker
 {
@@ -35,7 +38,9 @@ namespace LessonWebProject.TelegramAgentWorker
                   .ConfigureServices((hostContext, services) =>
                   {
                       services.AddDbContext<EFContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                      services.AddDbContext<UserDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                       services.AddTransient<IAdsRepository, AdsRepository>();
+                      services.AddTransient<IUserRepository, UserRepository>();
                       services.Configure<BotConfiguration>(Configuration.GetSection("BotConfiguration"));
                       services.AddTransient<AgentService>();
                       services.AddHostedService<Worker>();

@@ -10,8 +10,10 @@ namespace LessonWebProject.Data.Interfaces.Repository
     {
         void SaveAds(List<AdDBModel> output);
         IEnumerable<AdDBModel> GetAllAds();
+        IEnumerable<AdDBModel> GetAllUserAds(string userID);
         IEnumerable<AdDBModel> GetAdsByIdTask(int taskID);
         void Clear();
         void SaveFreshAds(List<AdDBModel> output);
+
     }
 }

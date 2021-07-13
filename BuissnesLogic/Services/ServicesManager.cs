@@ -8,10 +8,12 @@ namespace LessonWebProject.BusinessLogic.Services
     {
         public readonly UserTaskService _userTaskService;
         public readonly AdsService _adsService;
-        public ServicesManager(UserTaskService userTaskService, AdsService adsService)
+        public readonly HomeService _homeService;
+        public ServicesManager(UserTaskService userTaskService, AdsService adsService, HomeService homeService)
         {
             _userTaskService = userTaskService;
             _adsService = adsService;
+            _homeService = homeService;
         }
     }
 }

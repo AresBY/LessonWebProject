@@ -12,17 +12,25 @@ using Telegram.Bot.Types.InlineQueryResults;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Telegram.Bot.Extensions.Polling;
+using LessonWebProject.Data.Identity.Interfaces.Repository;
+using System.Collections.Generic;
+using LessonWebProject.Data.Interfaces.Repository;
 
-namespace LessonWebProject.TelegramAgentService
+namespace LessonWebProject.TelegramAgent
 {
     public class AgentService
     {
+        private static List<long> WaitingForAutorizationUsers = new List<long>();
         private static TelegramBotClient Bot;
 
         private readonly BotConfiguration _options;
-        public AgentService(IOptions<BotConfiguration> options)
+        private static IUserRepository _userRepository;
+        private static IAdsRepository _adsRepository;
+        public AgentService(IOptions<BotConfiguration> options, IUserRepository userRepository, IAdsRepository adsRepository)
         {
             _options = options.Value;
+            _userRepository = userRepository;
+            _adsRepository = adsRepository;
         }
 
         public void DoAdsSending()
@@ -42,7 +50,7 @@ namespace LessonWebProject.TelegramAgentService
             Bot.OnInlineQuery += BotOnInlineQueryReceived;
             Bot.OnInlineResultChosen += BotOnChosenInlineResultReceived;
             Bot.OnReceiveError += BotOnReceiveError;
-         
+
             Bot.StartReceiving(Array.Empty<UpdateType>());
             Console.WriteLine($"Start listening for @{me.Username}");
 
@@ -54,51 +62,86 @@ namespace LessonWebProject.TelegramAgentService
         }
         private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
         {
+
             var message = messageEventArgs.Message;
             if (message == null || message.Type != MessageType.Text)
                 return;
-            switch (message.Text.Split(' ').First())
+
+            if (!isRegisteredUser(message))
             {
-                // Send inline keyboard
-                case "/ShowAdsInfo":
-                    await SendAdsInfo(message);
-                    break;
-
-                case "/inline":
-                    await SendInlineKeyboard(message);
-                    break;
-
-                // send custom keyboard
-                case "/keyboard":
-                    await SendReplyKeyboard(message);
-                    break;
-
-                // send a photo
-                case "/photo":
-                    await SendDocument(message);
-                    break;
-
-                // request location or contact
-                case "/request":
-                    await RequestContactAndLocation(message);
-                    break;
-
-                default:
-                    await Usage(message);
-                    break;
-            }
-
-            // Send inline keyboard
-            // You can process responses in BotOnCallbackQueryReceived handler
-            static async Task SendInlineKeyboard(Message message)
-            {
-                await Bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
-
-                // Simulate longer running task
-                await Task.Delay(500);
-
-                var inlineKeyboard = new InlineKeyboardMarkup(new[]
+                if (!WaitingForAutorizationUsers.Contains(message.Chat.Id))
                 {
+                    await SendMessageAsync(message.Chat.Id, "Введите регистрационный токен");
+                    WaitingForAutorizationUsers.Add(message.Chat.Id);
+                    DeleteDisconnectedUsers(message.Chat.Id);
+                    return;
+                }
+
+                bool result = Registration(message);
+                if (result)
+                {
+                    WaitingForAutorizationUsers.Remove(message.Chat.Id);
+                    await SendMessageAsync(message.Chat.Id, "Регистрация прошла успешно");
+                    BotOnMessageReceived(sender, messageEventArgs);
+                }
+                else
+                {
+                    await SendMessageAsync(message.Chat.Id, "Введен не верный токен");
+                }
+            }
+            else
+            {
+                switch (message.Text.Split(' ').First())
+                {
+                    case "/ShowAdsInfo":
+                        await SendAdsInfo(message);
+                        break;
+
+                    case "/inline":
+                        await SendInlineKeyboard(message);
+                        break;
+
+                    // send custom keyboard
+                    case "/keyboard":
+                        await SendReplyKeyboard(message);
+                        break;
+
+                    // send a photo
+                    case "/photo":
+                        await SendDocument(message);
+                        break;
+
+                    // request location or contact
+                    case "/request":
+                        await RequestContactAndLocation(message);
+                        break;
+
+                    default:
+                        await Usage(message);
+                        break;
+                }
+            }
+        }
+
+        private static void DeleteDisconnectedUsers(ChatId chatId)
+        {
+            var result = WaitingForAutorizationUsers.Where(t =>
+                      Bot.GetChatMemberAsync(chatId, t).Result.Status == ChatMemberStatus.Left).Select(x => x).ToList();
+
+            WaitingForAutorizationUsers.RemoveAll(result.Contains);
+        }
+
+        // Send inline keyboard
+        // You can process responses in BotOnCallbackQueryReceived handler
+        static async Task SendInlineKeyboard(Message message)
+        {
+            await Bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
+
+            // Simulate longer running task
+            await Task.Delay(500);
+
+            var inlineKeyboard = new InlineKeyboardMarkup(new[]
+            {
                     // first row
                     new []
                     {
@@ -112,85 +155,97 @@ namespace LessonWebProject.TelegramAgentService
                         InlineKeyboardButton.WithCallbackData("2.2", "22"),
                     }
                 });
-                await Bot.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: "Choose",
-                    replyMarkup: inlineKeyboard
-                );
-            }
+            await Bot.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: "Choose",
+                replyMarkup: inlineKeyboard
+            );
+        }
 
-            static async Task SendReplyKeyboard(Message message)
-            {
-                var replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                    new KeyboardButton[][]
-                    {
+        static async Task SendReplyKeyboard(Message message)
+        {
+            var replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new KeyboardButton[][]
+                {
                         new KeyboardButton[] { "1.1", "1.2" },
                         new KeyboardButton[] { "2.1", "2.2" },
-                    },
-                    resizeKeyboard: true
-                );
+                },
+                resizeKeyboard: true
+            );
 
-                await Bot.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: "Choose",
-                    replyMarkup: replyKeyboardMarkup
+            await Bot.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: "Choose",
+                replyMarkup: replyKeyboardMarkup
 
-                );
-            }
+            );
+        }
 
-            static async Task SendDocument(Message message)
+        static async Task SendDocument(Message message)
+        {
+            await Bot.SendChatActionAsync(message.Chat.Id, ChatAction.UploadPhoto);
+
+            const string filePath = @"Files/tux.png";
+            using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var fileName = filePath.Split(Path.DirectorySeparatorChar).Last();
+            await Bot.SendPhotoAsync(
+                chatId: message.Chat.Id,
+                photo: new InputOnlineFile(fileStream, fileName),
+                caption: "Nice Picture"
+            );
+        }
+
+        static async Task RequestContactAndLocation(Message message)
+        {
+            var RequestReplyKeyboard = new ReplyKeyboardMarkup(new[]
             {
-                await Bot.SendChatActionAsync(message.Chat.Id, ChatAction.UploadPhoto);
-
-                const string filePath = @"Files/tux.png";
-                using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                var fileName = filePath.Split(Path.DirectorySeparatorChar).Last();
-                await Bot.SendPhotoAsync(
-                    chatId: message.Chat.Id,
-                    photo: new InputOnlineFile(fileStream, fileName),
-                    caption: "Nice Picture"
-                );
-            }
-
-            static async Task RequestContactAndLocation(Message message)
-            {
-                var RequestReplyKeyboard = new ReplyKeyboardMarkup(new[]
-                {
                     KeyboardButton.WithRequestLocation("Location"),
                     KeyboardButton.WithRequestContact("Contact"),
                 });
-                await Bot.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: "Who or Where are you?",
-                    replyMarkup: RequestReplyKeyboard
-                );
-            }
-
-            static async Task Usage(Message message)
-            {
-                //const string usage = "Usage:\n" +
-                //                        "/ShowAdsInfo \n" +
-                //                        "/inline   - send inline keyboard\n" +
-                //                        "/keyboard - send custom keyboard\n" +
-                //                        "/photo    - send a photo\n" +
-                //                        "/request  - request location or contact";
-                const string usage = "Usage:\n" +
-                                       "/ShowAdsInfo \n" +
-                                       "/inline   - send inline keyboard\n" +
-                                       "/keyboard - send custom keyboard\n";
-                await Bot.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: usage,
-                    replyMarkup: new ReplyKeyboardRemove()
-                );
-            }
+            await Bot.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: "Who or Where are you?",
+                replyMarkup: RequestReplyKeyboard
+            );
         }
 
-        private static async Task SendAdsInfo(Message message)
+        static async Task Usage(Message message)
         {
-            string output = string.Empty;
+            const string usage = "Usage:\n" +
+                                   "/ShowAdsInfo \n" +
+                                   "/inline   - send inline keyboard\n" +
+                                   "/keyboard - send custom keyboard\n";
+            await Bot.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: usage,
+                replyMarkup: new ReplyKeyboardRemove()
+            );
+        }
 
-            output = "Тут я выведу обьявления пользователя";
+        static bool isRegisteredUser(Message message)
+        {
+            return _userRepository.isRegisteredUser(message.Chat.Id);
+        }
+        static async Task SendMessageAsync(long id, string messageText)
+        {
+            await Bot.SendTextMessageAsync(
+          chatId: id,
+          text: messageText);
+        }
+        static bool Registration(Message message)
+        {
+            return _userRepository.TelegramUserRegistration(message.Text, message.Chat.Id);
+        }
+        static async Task SendAdsInfo(Message message)
+        {
+            string output = "Ваши обьявления: \n";
+            string userID = _userRepository.GetUserIdByTelegramChatID(message.Chat.Id);
+            var ads = _adsRepository.GetAllUserAds(userID);
+            foreach(var ad in ads)
+            {
+                output +=$"Описание: {ad.Description} \n Цена: {ad.Price} \n Телефон: {ad.Phone} \n\n";
+            }
+         
             await Bot.SendTextMessageAsync(
             chatId: message.Chat.Id,
             text: output);

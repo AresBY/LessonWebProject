@@ -13,7 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LessonWebProject.CrawlerWorkerService
+namespace LessonWebProject.CrawlerWorker
 {
     public class Program
     {

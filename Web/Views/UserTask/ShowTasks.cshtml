@@ -61,14 +61,6 @@
                     }
                 </td>
             </tr>
-
-
-            @*@using (Html.BeginForm("OperationWithTask", "UserTask", FormMethod.Post))
-                {
-                    <input type="hidden" name="taskID" value=@Model[i].ID />
-                    <input type="hidden" name="operation" value="info" />
-                    <button type="submit">Инфо @Model[i].ID </button>
-                }*@
         </table>
         <p>
             <button type="submit" form="form1" name="operation" value="delete">Удалить</button>
