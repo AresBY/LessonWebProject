@@ -1,17 +1,18 @@
-using LessonWebProject.BusinessLogic.Models;
+﻿using LessonWebProject.BusinessLogic.Models;
 using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Data.Implementations.Repository;
 using LessonWebProject.Data.Interfaces.Repository;
 using LessonWebProject.Data.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xunit;
 
 
-namespace LessonWebProject.BusinessLogic.Moq
+namespace LessonWebProject.BusinessLogic.Tests
 {
+    [TestClass]
     public class AdsServiceTests
     {
         private readonly AdsService _adsService;
@@ -20,7 +21,7 @@ namespace LessonWebProject.BusinessLogic.Moq
         {
             _adsService = new AdsService(_adsRepoMock.Object);
         }
-     
+        [TestMethod]
         public void GetAdsByTaskID_ShouldReturnAds_WhenExists()
         {
             //Arrange
@@ -43,7 +44,7 @@ namespace LessonWebProject.BusinessLogic.Moq
             IEnumerable<AdModel> actual = _adsService.GetAdsByTaskID(taskID);
 
             ////Assert
-            Assert.Equal(expected.Count(), actual.Count());
+            Assert.AreEqual(expected.Count(), actual.Count());
         }
     }
 }

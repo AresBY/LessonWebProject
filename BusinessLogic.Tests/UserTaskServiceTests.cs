@@ -4,16 +4,17 @@ using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Common.Enums;
 using LessonWebProject.Data.Interfaces.Repository;
 using LessonWebProject.Data.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Xunit;
 
-namespace LessonWebProject.BusinessLogic.Moq
+namespace LessonWebProject.BusinessLogic.Tests
 {
-    class UserTaskServiceTests
+    [TestClass]
+    public class UserTaskServiceTests
     {
         private readonly UserTaskService _userTaskService;
         private readonly Mock<IUserTaskRepository> _userTaskRepoMock = new Mock<IUserTaskRepository>();
@@ -22,7 +23,8 @@ namespace LessonWebProject.BusinessLogic.Moq
         {
             _userTaskService = new UserTaskService(_userTaskRepoMock.Object);
         }
-        public void CreateTask()
+        [TestMethod]
+        public void CreateTask_ShouldSendModelToRepository()
         {
             //Arrange
             _userTaskRepoMock.Setup(t => t.SaveUserTask(It.IsAny<UserTaskDBModel>()));
@@ -31,7 +33,8 @@ namespace LessonWebProject.BusinessLogic.Moq
             //Assert
             _userTaskRepoMock.Verify(x => x.SaveUserTask(It.IsAny<UserTaskDBModel>()), Times.Once());
         }
-        public void RemoveTasksByID()
+        [TestMethod]
+        public void RemoveTasksByID_ShouldSendInformationToRemoveMethodFromRepository()
         {
             //Arrange
             string taskID = "3";
@@ -41,7 +44,8 @@ namespace LessonWebProject.BusinessLogic.Moq
             //Assert
             _userTaskRepoMock.Verify(x => x.RemoveUserTasksByID(taskID, It.IsAny<int[]>()), Times.Once());
         }
-        public void GetAllUserTasks()
+        [TestMethod]
+        public void GetAllUserTasks_ShouldReturnAllTaskOfUser()
         {
             //Arrange
             string taskID = "3";
@@ -64,9 +68,10 @@ namespace LessonWebProject.BusinessLogic.Moq
             var actual = _userTaskService.GetAllUserTasks(taskID);
 
             ////Assert
-            Assert.Equal(expected.Count(), actual.Count());
+            Assert.AreEqual(expected.Count(), actual.Count());
         }
-        public void GetCountTasks()
+        [TestMethod]
+        public void GetCountTasks_ShouldReturnCountTaksOfUser()
         {
             //Arrange
             string userID = "3";
@@ -76,12 +81,13 @@ namespace LessonWebProject.BusinessLogic.Moq
             //Assert
             _userTaskRepoMock.Verify(x => x.GetCountTasksByUserID(userID), Times.Once());
         }
-        public void GetTaskById()
+        [TestMethod]
+        public void GetTaskById_ShouldReturnTaskByID()
         {
             //Arrange
             int taskID = 3;
             _userTaskRepoMock.Setup(t => t.GetTaskById(taskID)).Returns(
-                new UserTaskDBModel() { ID = 1, CategoryType = CategoryType.Cars, Price = 1 }); 
+                new UserTaskDBModel() { ID = 1, CategoryType = CategoryType.Cars, Price = 1 });
             //Act
             _userTaskService.GetTaskById(taskID);
             //Assert
