@@ -1,5 +1,4 @@
 ﻿using LessonWebProject.BusinessLogic.Models;
-using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Common;
 using LessonWebProject.Data.Models;
 using LessonWebProject.Web.Extensions;
@@ -9,22 +8,23 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Linq;
 using System;
-
+using LessonWebProject.BusinessLogic.Interfaces;
 
 namespace LessonWebProject.Web.Controllers
 {
     public class UserTaskController : Controller
     {
-        private readonly ServicesManager _servicesManager;
+        private readonly IServicesManager _servicesManager;
      
-        public UserTaskController(ServicesManager servicesManager)
+        public UserTaskController(IServicesManager servicesManager)
         {
             _servicesManager = servicesManager;
         }
         public IActionResult ShowTasks(int? taskID = null)
         {
-            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-          
+            throw new Exception("Разобраться что делать с поиском юзера , которого нет");
+            //string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userID = string.Empty;
 
             ShowTasksViewModel showTasksModel = new ShowTasksViewModel();
             showTasksModel.Tasks = _servicesManager._userTaskService.GetAllUserTasks(userID).toContract().ToList();

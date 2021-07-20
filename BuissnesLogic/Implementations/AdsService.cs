@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using LessonWebProject.BusinessLogic.Extensions;
+using LessonWebProject.BusinessLogic.Interfaces;
 
-namespace LessonWebProject.BusinessLogic.Services
+namespace LessonWebProject.BusinessLogic.Implementations
 {
-    public class AdsService
+    public class AdsService : IAdsService
     {
         private readonly IAdsRepository _adsRepository;
         public AdsService(IAdsRepository adsRepository)

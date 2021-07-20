@@ -6,12 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using LessonWebProject.Data;
-using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Data.Interfaces.Repository;
 using LessonWebProject.Data.Implementations.Repository;
 using LessonWebProject.Data.Identity;
 using LessonWebProject.Data.Identity.Interfaces.Repository;
 using LessonWebProject.Data.Identity.Implementations.Repository;
+using LessonWebProject.BusinessLogic.Interfaces;
+using LessonWebProject.BusinessLogic.Implementations;
 
 namespace LessonWebProject.Web
 {
@@ -58,11 +59,12 @@ namespace LessonWebProject.Web
             services.AddTransient<IUserTaskRepository, UserTaskRepository>();
             services.AddTransient<IAdsRepository, AdsRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IServicesManager, ServicesManager>();
+            services.AddTransient<IUserTaskService, UserTaskService>();
+            services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<IAdsService, AdsService>();
 
-            services.AddTransient<ServicesManager>();
-            services.AddTransient<UserTaskService>();
-            services.AddTransient<HomeService>();
-            services.AddTransient<AdsService>();
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

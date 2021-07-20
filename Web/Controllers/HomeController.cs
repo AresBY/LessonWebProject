@@ -1,4 +1,4 @@
-﻿using LessonWebProject.BusinessLogic.Services;
+﻿using LessonWebProject.BusinessLogic.Interfaces;
 using LessonWebProject.Data.Identity;
 using LessonWebProject.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +10,8 @@ namespace LessonWebProject.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ServicesManager _servicesManager;
-        public HomeController(ServicesManager servicesManager)
+        private readonly IServicesManager _servicesManager;
+        public HomeController(IServicesManager servicesManager)
         {
             _servicesManager = servicesManager;
         }

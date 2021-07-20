@@ -1,6 +1,7 @@
 ﻿using LessonWebProject.BusinessLogic.Extensions;
+using LessonWebProject.BusinessLogic.Implementations;
+using LessonWebProject.BusinessLogic.Interfaces;
 using LessonWebProject.BusinessLogic.Models;
-using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Common.Enums;
 using LessonWebProject.Data.Interfaces.Repository;
 using LessonWebProject.Data.Models;
@@ -16,7 +17,7 @@ namespace LessonWebProject.BusinessLogic.Tests
     [TestClass]
     public class UserTaskServiceTests
     {
-        private readonly UserTaskService _userTaskService;
+        private readonly IUserTaskService _userTaskService;
         private readonly Mock<IUserTaskRepository> _userTaskRepoMock = new Mock<IUserTaskRepository>();
 
         public UserTaskServiceTests()

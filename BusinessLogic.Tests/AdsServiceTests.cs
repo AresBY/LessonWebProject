@@ -1,5 +1,5 @@
-﻿using LessonWebProject.BusinessLogic.Models;
-using LessonWebProject.BusinessLogic.Services;
+﻿using LessonWebProject.BusinessLogic.Implementations;
+using LessonWebProject.BusinessLogic.Models;
 using LessonWebProject.Data.Implementations.Repository;
 using LessonWebProject.Data.Interfaces.Repository;
 using LessonWebProject.Data.Models;

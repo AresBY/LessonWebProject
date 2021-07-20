@@ -6,11 +6,12 @@ using System.Linq;
 using LessonWebProject.BusinessLogic.Models;
 using LessonWebProject.Data.Models;
 using LessonWebProject.BusinessLogic.Extensions;
+using LessonWebProject.BusinessLogic.Interfaces;
 
-
-namespace LessonWebProject.BusinessLogic.Services
+namespace LessonWebProject.BusinessLogic.Implementations
 {
-    public class UserTaskService
+
+    public class UserTaskService : IUserTaskService
     {
         private readonly IUserTaskRepository _userTaskRepository;
         public UserTaskService(IUserTaskRepository userTaskRepository)

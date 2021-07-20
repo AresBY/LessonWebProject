@@ -1,10 +1,14 @@
+using LessonWebProject.BusinessLogic.Implementations;
+using LessonWebProject.BusinessLogic.Interfaces;
 using LessonWebProject.BusinessLogic.Models;
-using LessonWebProject.BusinessLogic.Services;
 using LessonWebProject.Web.Controllers;
+using LessonWebProject.Web.Extensions;
 using LessonWebProject.Web.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 
 namespace Web.Tests
@@ -13,40 +17,39 @@ namespace Web.Tests
     public class UserTaskControllerTests
     {
         private readonly UserTaskController _userTaskController;
-        private readonly Mock<ServicesManager> _servicesManager = new Mock<ServicesManager>();
-
+        private readonly ServicesManager _servicesManager;
+        private readonly Mock<IUserTaskService> _userTaskService = new Mock<IUserTaskService>();
+        private readonly Mock<IAdsService> _adsService = new Mock<IAdsService>();
+        private readonly Mock<IHomeService> _homeService = new Mock<IHomeService>();
         public UserTaskControllerTests()
         {
-            _userTaskController = new UserTaskController(_servicesManager.Object);
+            _servicesManager = new ServicesManager(_userTaskService.Object, _adsService.Object, _homeService.Object);
+          
+            _userTaskController = new UserTaskController(_servicesManager);
         }
-        //public IActionResult ShowTasks(int? taskID = null)
-        //{
-        //    string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-
-        //    ShowTasksViewModel showTasksModel = new ShowTasksViewModel();
-        //    showTasksModel.Tasks = _servicesManager._userTaskService.GetAllUserTasks(userID).toContract().ToList();
-        //    showTasksModel.Ads = taskID != null ? _servicesManager._adsService.GetAdsByTaskID((int)taskID).toContract().ToList() : null;
-        //    return View(showTasksModel);
-        //}
+        
         [TestMethod]
-        public void ShowTasks_ShouldShowTasksAndAds()
+        public void ShowTasks_ShouldShowTasks()
         {
             //Arrange
-            IEnumerable<UserTaskModel> UserTasks = GetUserTasks();
+            ShowTasksViewModel tasksViewModel = GetTasksViewModel();
 
-            _servicesManager.Setup(t => t._userTaskService.GetAllUserTasks(It.IsAny<string>())).Returns(UserTasks);
+            _userTaskService.Setup(t => t.GetAllUserTasks(It.IsAny<string>())).Returns(GetUserTasks());
 
             //Act
             var result = _userTaskController.ShowTasks();
-            //var result2 = _userTaskController.ShowTasks(15);
-
             //Assert
-            Assert.IsInstanceOfType(result, typeof(ShowTasksViewModel));
-            Assert.AreEqual(((ShowTasksViewModel)result).Tasks, UserTasks);
-            Assert.AreEqual(((ShowTasksViewModel)result).Ads, null);
+            _userTaskService.Verify(x => x.GetAllUserTasks(It.IsAny<string>()), Times.Once());
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.AreEqual((((ViewResult)result).Model as ShowTasksViewModel).Tasks.Count, tasksViewModel.Tasks.Count);
         }
-
+        
+        private ShowTasksViewModel GetTasksViewModel()
+        {
+            ShowTasksViewModel output = new ShowTasksViewModel();
+            output.Tasks = GetUserTasks().toContract().ToList();
+            return output;
+        }
         private IEnumerable<UserTaskModel> GetUserTasks()
         {
             return new List<UserTaskModel>()

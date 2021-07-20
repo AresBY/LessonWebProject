@@ -1,12 +1,13 @@
-﻿using LessonWebProject.Data.Identity;
+﻿using LessonWebProject.BusinessLogic.Interfaces;
+using LessonWebProject.Data.Identity;
 using LessonWebProject.Data.Identity.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LessonWebProject.BusinessLogic.Services
+namespace LessonWebProject.BusinessLogic.Implementations
 {
-    public class HomeService
+    public class HomeService : IHomeService
     {
         private readonly IUserRepository _userRepository;
 
