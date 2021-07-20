@@ -31,9 +31,6 @@ namespace LessonWebProject.Web.Controllers
             showTasksModel.Ads = taskID != null ? _servicesManager._adsService.GetAdsByTaskID((int)taskID).toContract().ToList() : null;
             return View(showTasksModel);
         }
-
-      
-
        
         public IActionResult DeleteTasks(params int[] taskID)
         {

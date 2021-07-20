@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LessonWebProject.BusinessLogic.Services
 {
-    public class ServicesManager
+    public class ServicesManager : IServicesManager
     {
         public readonly UserTaskService _userTaskService;
         public readonly AdsService _adsService;
@@ -15,5 +15,8 @@ namespace LessonWebProject.BusinessLogic.Services
             _adsService = adsService;
             _homeService = homeService;
         }
+    }
+    public interface IServicesManager
+    {
     }
 }
