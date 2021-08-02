@@ -9,32 +9,36 @@ using System.Security.Claims;
 using System.Linq;
 using System;
 using LessonWebProject.BusinessLogic.Interfaces;
+using Web.Additions;
 
 namespace LessonWebProject.Web.Controllers
 {
     public class UserTaskController : Controller
     {
+        private readonly UserTaskControllerAddition _userTaskControllerAddition;
         private readonly IServicesManager _servicesManager;
-     
-        public UserTaskController(IServicesManager servicesManager)
+
+
+        public UserTaskController(IServicesManager servicesManager, UserTaskControllerAddition userTaskControllerAddition)
         {
             _servicesManager = servicesManager;
+            _userTaskControllerAddition = userTaskControllerAddition;
         }
         public IActionResult ShowTasks(int? taskID = null)
         {
-            throw new Exception("Разобраться что делать с поиском юзера , которого нет");
-            //string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            string userID = string.Empty;
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            ShowTasksViewModel showTasksModel = new ShowTasksViewModel();
-            showTasksModel.Tasks = _servicesManager._userTaskService.GetAllUserTasks(userID).toContract().ToList();
-            showTasksModel.Ads = taskID != null ? _servicesManager._adsService.GetAdsByTaskID((int)taskID).toContract().ToList() : null;
+            ShowTasksViewModel showTasksModel = _userTaskControllerAddition.ShowTasks(taskID, userID);
+
             return View(showTasksModel);
         }
        
         public IActionResult DeleteTasks(params int[] taskID)
         {
-            _servicesManager._userTaskService.RemoveTasksByID(User.FindFirstValue(ClaimTypes.NameIdentifier), taskID);
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            _userTaskControllerAddition.DeleteTasks(taskID, userID);
+
             return RedirectToAction("ShowTasks");
         }
 
@@ -85,22 +89,23 @@ namespace LessonWebProject.Web.Controllers
         {
             return View(new UserTaskViewModel());
         }
+
         [HttpPost]
         public IActionResult GetEditTaskData(int taskID, UserTaskViewModel userTaskViewModel)
         {
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _servicesManager._userTaskService.RemoveTasksByID(userID, taskID);
 
-            userTaskViewModel.UserID = userID;
-            _servicesManager._userTaskService.CreateTask(userTaskViewModel.toUserTaskModel());
+            _userTaskControllerAddition.GetEditTaskData(taskID, userTaskViewModel, userID);
+           
             return RedirectToAction("ShowTasks");
         }
 
         [HttpPost]
         public IActionResult GetNewTaskData(UserTaskViewModel userTaskViewModel)
         {
-            userTaskViewModel.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _servicesManager._userTaskService.CreateTask(userTaskViewModel.toUserTaskModel());
+            string userID =  User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            _userTaskControllerAddition.GetNewTaskData(userTaskViewModel, userID);
 
             return RedirectToAction("ShowTasks");
         }

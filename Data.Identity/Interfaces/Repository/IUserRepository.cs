@@ -8,8 +8,9 @@ namespace LessonWebProject.Data.Identity.Interfaces.Repository
     {
         void SaveTelegramRegisterCode(string userID, string code);
         string GetTelegrammRegisterCode(string userID);
-        bool TelegramUserRegistration(string token, long id);
-        bool isRegisteredUser(long id);
+        ApplicationUser GetUserByTelegramToken(string token);
+        bool IsRegisteredUser(long id);
         string GetUserIdByTelegramChatID(long token);
+        public void SaveTelegramUserID(ApplicationUser user, long id);
     }
 }

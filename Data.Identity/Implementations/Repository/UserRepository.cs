@@ -24,7 +24,7 @@ namespace LessonWebProject.Data.Identity.Implementations.Repository
             return _context.Users.First(t => t.TelegramUserID == token).Id;
         }
 
-        public bool isRegisteredUser(long id)
+        public bool IsRegisteredUser(long id)
         {
             return _context.Users.FirstOrDefault(t => t.TelegramUserID == id) != null;
         }
@@ -41,17 +41,16 @@ namespace LessonWebProject.Data.Identity.Implementations.Repository
             _context.SaveChanges();
         }
 
-        public bool TelegramUserRegistration(string token, long id)
+        public void SaveTelegramUserID(ApplicationUser user, long id)
         {
-            ApplicationUser user = _context.Users.FirstOrDefault(t => t.TelegrammRegisterCode == token);
-
-            if (user != null)
-            {
-                user.TelegramUserID = id;
-                _context.SaveChanges();
-                return true;
-            }
-            return false;
+            user.TelegramUserID = id;
+            _context.SaveChanges();
         }
+        public ApplicationUser GetUserByTelegramToken(string token)
+        {
+            return _context.Users.FirstOrDefault(t => t.TelegrammRegisterCode == token);
+        }
+
+       
     }
 }

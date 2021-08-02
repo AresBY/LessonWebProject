@@ -224,7 +224,7 @@ namespace LessonWebProject.TelegramAgent
 
         static bool isRegisteredUser(Message message)
         {
-            return _userRepository.isRegisteredUser(message.Chat.Id);
+            return _userRepository.IsRegisteredUser(message.Chat.Id);
         }
         static async Task SendMessageAsync(long id, string messageText)
         {
@@ -234,18 +234,24 @@ namespace LessonWebProject.TelegramAgent
         }
         static bool Registration(Message message)
         {
-            return _userRepository.TelegramUserRegistration(message.Text, message.Chat.Id);
+            var user = _userRepository.GetUserByTelegramToken(message.Text);
+            if (user != null)
+            {
+                _userRepository.SaveTelegramUserID(user, message.Chat.Id);
+                return true;
+            }
+            return false;
         }
         static async Task SendAdsInfo(Message message)
         {
             string output = "Ваши обьявления: \n";
             string userID = _userRepository.GetUserIdByTelegramChatID(message.Chat.Id);
             var ads = _adsRepository.GetAllUserAds(userID);
-            foreach(var ad in ads)
+            foreach (var ad in ads)
             {
-                output +=$"Описание: {ad.Description} \n Цена: {ad.Price} \n Телефон: {ad.Phone} \n\n";
+                output += $"Описание: {ad.Description} \n Цена: {ad.Price} \n Телефон: {ad.Phone} \n\n";
             }
-         
+
             await Bot.SendTextMessageAsync(
             chatId: message.Chat.Id,
             text: output);
